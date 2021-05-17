@@ -1,15 +1,3 @@
-body {
-  margin: 0;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 .bg-transparent-dark {
   background-color: #70707085;
 }
@@ -70,19 +58,29 @@ code {
   background-color: #2f3136;
 }
 
+.bg-trello-quaternary {
+  background-color: #9292925e;
+}
+
 .trello-header {
   height: 120px;
-}
-
-.clip-right {
-  clip-path: circle(100% at 100% 100%);
-}
-
-.clir-left {
-  clip-path: circle(100% at 0 100%);
 }
 
 .clipped-square {
   width: 40px;
   height: 40px;
+}
+
+.form-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+}
+
+.trello-form-input {
+  @include form-input-mixin;
+}
+
+.trello-form-input:focus {
+  @include form-input-mixin;
 }

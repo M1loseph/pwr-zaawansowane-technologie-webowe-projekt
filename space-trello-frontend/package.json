@@ -9,6 +9,7 @@
     "mdb-react-ui-kit": "^1.0.0-beta4",
     "mdb-ui-kit": "^3.5.1",
     "mdbreact": "^5.0.2",
+    "node-sass": "^6.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
     "react-dnd": "^14.0.2",
