@@ -18,16 +18,16 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
       <Modal.Body>
         <Container>
           <Row className={"font-weight-bold"}>
-            <i class="fas fa-list fa-lg mr-2"></i>
+            <i className="fas fa-list fa-lg mr-2"></i>
             {title}
           </Row>
           <Row className={"my-4"}>
-            <i class="fas fa-file-alt fa-lg mr-2"></i>
+            <i className="fas fa-file-alt fa-lg mr-2"></i>
           </Row>
           <Row>
-            <i class="fas fa-users fa-lg mr-2"></i>
+            <i className="fas fa-users fa-lg mr-2"></i>
             {users.map((u) => (
-              <UserIconSmall user={u} />
+              <UserIconSmall key={u.id} user={u} />
             ))}
           </Row>
         </Container>

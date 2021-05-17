@@ -15,6 +15,29 @@ const Card = ({ card }) => {
       { id: 1, color: "red" },
       { id: 2, color: "lime" },
     ],
+    users: [
+      {
+        id: 1,
+        src: "https://thispersondoesnotexist.com/image",
+        name: "Michał",
+        surname: "Kowalski",
+        color: "red",
+      },
+      {
+        id: 2,
+        src: "https://thispersondoesnotexist.com/image",
+        name: "Ania",
+        surname: "Kowalska",
+        color: "blue",
+      },
+      {
+        id: 3,
+        src: "https://thispersondoesnotexist.com/image",
+        name: "Michał",
+        surname: "Kowalski",
+        color: "orange",
+      },
+    ],
   };
 
   const { title } = card;

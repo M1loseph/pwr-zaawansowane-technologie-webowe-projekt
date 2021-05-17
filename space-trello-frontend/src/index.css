@@ -57,3 +57,32 @@ code {
   width: 500px;
   background-color: #70707085;
 }
+
+.bg-trello-primary {
+  background-color: #36393f;
+}
+
+.bg-trello-secondary {
+  background-color: #202225;
+}
+
+.bg-trello-tertiary {
+  background-color: #2f3136;
+}
+
+.trello-header {
+  height: 120px;
+}
+
+.clip-right {
+  clip-path: circle(100% at 100% 100%);
+}
+
+.clir-left {
+  clip-path: circle(100% at 0 100%);
+}
+
+.clipped-square {
+  width: 40px;
+  height: 40px;
+}

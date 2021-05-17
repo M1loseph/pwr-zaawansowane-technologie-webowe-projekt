@@ -1,8 +1,8 @@
 import React from "react";
-import Column from "../components/column/Column";
-import TablePageHeader from "../components/TablePageHeader";
-import AddColumnButton from "../components/column/AddColumnButton";
-import ColumnWrapper from "../components/column/ColumnWrapper";
+import Column from "../components/table/column/Column";
+import TablePageHeader from "../components/table/TablePageHeader";
+import AddColumnButton from "../components/table/column/AddColumnButton";
+import ColumnWrapper from "../components/table/column/ColumnWrapper";
 
 const TablePage = () => {
   const columns = [
@@ -20,7 +20,6 @@ const TablePage = () => {
   const bgImage = "https://i.imgur.com/IEEifKy.jpg";
   return (
     <div
-      fluid
       style={{
         backgroundImage: `url(${bgImage})`,
         height: "100vh",
