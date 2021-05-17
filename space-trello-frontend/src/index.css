@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.bg-transparent-dark {
+  background-color: #70707085;
+}
+
+.user-icon-small {
+  border-style: solid;
+  border-width: 3px;
+}
+
+.column-title {
+  color: #404040;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.column {
+  background-color: #dcdcdc;
+}
+
+.column-add-text {
+  color: #a7a7a7;
+}
+
+.add-card-icon {
+  height: 35;
+  width: 35;
+}
+
+.add-column-button {
+  background-color: #a7a7a7;
+}
+
+.category-minimal {
+  height: 20px;
+  width: 70px;
+}
+
+.column-cotainer {
+  width: 350px;
+}
+
+.table-header {
+  width: 500px;
+  background-color: #70707085;
+}
