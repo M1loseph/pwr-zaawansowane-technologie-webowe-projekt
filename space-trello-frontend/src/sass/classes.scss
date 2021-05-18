@@ -84,3 +84,21 @@
 .trello-form-input:focus {
   @include form-input-mixin;
 }
+
+.trello-btn-primary {
+  @include font-primary-mixin;
+  background-color: $btn-primary;
+  &:hover {
+    @include font-primary-mixin;
+    background-color: $btn-focus;
+  }
+}
+
+.trello-form-clickable {
+  color: $font-secondary;
+  font-weight: $font-weight-primary;
+
+  &:hover {
+    color: $font-primary;
+  }
+}

@@ -3,3 +3,8 @@
   border: none;
   color: white;
 }
+
+@mixin font-primary-mixin {
+  color: $font-primary;
+  font-weight: 500;
+}
