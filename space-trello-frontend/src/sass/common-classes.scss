@@ -1,0 +1,25 @@
+.trello-clickable {
+  cursor: pointer;
+}
+
+.trello-setting-user-icon {
+  width: $icon-settings-size;
+  height: $icon-settings-size;
+  object-fit: cover;
+}
+
+.trello-background {
+  min-height: 100vh;
+  background-color: $bg-primary;
+}
+
+.trello-table-card {
+  width: $table-card-width;
+  height: $table-card-height;
+  background-size: cover;
+}
+
+.trello-tables-page-font {
+  font-weight: bold;
+  color: $font-primary;
+}

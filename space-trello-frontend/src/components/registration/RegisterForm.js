@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import FormBase from "./helper/FormBase";
+import FormBase from "../helper/FormBase";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({

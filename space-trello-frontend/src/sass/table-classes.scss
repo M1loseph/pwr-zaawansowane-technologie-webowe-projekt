@@ -1,0 +1,19 @@
+.trello-table-add-column {
+  background-color: $table-bg-transparent;
+}
+
+.trello-user-icon {
+  border-style: solid;
+  border-width: 3px;
+  width: $icon-small-size;
+  height: $icon-small-size;
+}
+
+.trello-column {
+  background-color: #dcdcdc;
+}
+
+.trello-column-wrapper {
+  width: $column-width;
+  min-width: $column-width;
+}

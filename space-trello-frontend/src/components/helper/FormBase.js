@@ -6,7 +6,7 @@ const FormBase = ({ children, sm, md, lg, xl }) => {
     <MDBContainer>
       <MDBRow className="justify-content-center">
         <MDBCol
-          className="bg-trello-quaternary p-4 rounded"
+          className="trello-form p-4 rounded"
           sm={sm ?? 10}
           md={md ?? 8}
           lg={lg ?? 6}

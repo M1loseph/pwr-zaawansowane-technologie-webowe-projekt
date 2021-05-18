@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import FormBase from "./helper/FormBase";
+import FormBase from "../helper/FormBase";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });

@@ -1,11 +1,7 @@
 import React from "react";
 
 const Background = ({ children }) => {
-  return (
-    <div className="bg-trello-primary" style={{ height: "100vh" }}>
-      {children}
-    </div>
-  );
+  return <div className="trello-background">{children}</div>;
 };
 
 export default Background;

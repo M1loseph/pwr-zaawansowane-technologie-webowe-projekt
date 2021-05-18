@@ -4,7 +4,7 @@ const ColumnHeader = ({ title }) => {
   return (
     <div className="d-flex flex-row justify-content-between ">
       <h4 className={"font-weight-bold"}>{title}</h4>
-      <i className="fas fa-ellipsis-h fa-lg clickable"></i>
+      <i className="fas fa-ellipsis-h fa-lg trello-clickable"></i>
     </div>
   );
 };

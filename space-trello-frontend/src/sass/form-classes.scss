@@ -1,22 +1,5 @@
-.bg-transparent-dark {
-  background-color: #70707085;
-}
-
-.user-icon-small {
-  border-style: solid;
-  border-width: 3px;
-}
-
 .column-title {
   color: #404040;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-.column {
-  background-color: #dcdcdc;
 }
 
 .column-add-text {
@@ -24,8 +7,7 @@
 }
 
 .add-card-icon {
-  height: 35;
-  width: 35;
+  @include round-icon-mixin($icon-settings-size);
 }
 
 .add-column-button {
@@ -35,10 +17,6 @@
 .category-minimal {
   height: 20px;
   width: 70px;
-}
-
-.column-cotainer {
-  width: 350px;
 }
 
 .table-header {
@@ -58,10 +36,6 @@
   background-color: #2f3136;
 }
 
-.bg-trello-quaternary {
-  background-color: #9292925e;
-}
-
 .trello-header {
   height: 120px;
 }
@@ -79,10 +53,15 @@
 
 .trello-form-input {
   @include form-input-mixin;
-}
 
-.trello-form-input:focus {
-  @include form-input-mixin;
+  &:focus {
+    @include form-input-mixin;
+  }
+
+  &:disabled {
+    @include form-input-mixin;
+    color: $font-secondary;
+  }
 }
 
 .trello-btn-primary {
@@ -94,11 +73,29 @@
   }
 }
 
+.trello-btn-dark {
+  @include font-primary-mixin;
+  background-color: $bg-primary;
+
+  &:hover {
+    @include font-primary-mixin;
+  }
+}
+
 .trello-form-clickable {
   color: $font-secondary;
   font-weight: $font-weight-primary;
 
   &:hover {
+    @extend .trello-clickable;
     color: $font-primary;
   }
+}
+
+.trello-form {
+  background-color: $bg-quaternary;
+}
+
+.trello-settings-icon {
+    @include round-icon-mixin($icon-settings-size)
 }

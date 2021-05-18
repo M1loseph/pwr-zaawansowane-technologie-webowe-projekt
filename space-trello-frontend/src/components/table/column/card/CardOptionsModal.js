@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Container, Modal, Row } from "react-bootstrap";
-import UserIconSmall from "../../UserIcon";
+import UserIcon from "../../../common/UserIcon";
 import Category from "./category/Category";
 
 const CardOptionsModal = ({ showModal, setShowModal, card }) => {
@@ -27,7 +27,7 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
           <Row>
             <i className="fas fa-users fa-lg mr-2"></i>
             {users.map((u) => (
-              <UserIconSmall key={u.id} user={u} />
+              <UserIcon key={u.id} user={u} />
             ))}
           </Row>
         </Container>

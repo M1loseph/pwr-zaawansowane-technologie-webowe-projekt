@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserIcon from "./UserIcon";
+import UserIcon from "../common/UserIcon";
 import AddUsersToTableModal from "./AddUsersToTableModal";
 
 const TablePageHeader = ({ users }) => {
@@ -102,7 +102,7 @@ const TablePageHeader = ({ users }) => {
               ))}
               <img
                 onClick={() => setShowModal(true)}
-                className={"ml-3 clickable"}
+                className={"ml-3 trello-clickable"}
                 src={"/assets/addUserToTable.svg"}
                 alt={"Add new user"}
               />

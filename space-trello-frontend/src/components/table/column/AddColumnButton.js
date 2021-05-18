@@ -3,7 +3,7 @@ import { Image } from "react-bootstrap";
 
 const AddColumnButton = () => {
   return (
-    <div className={"clickable p-2 rounded bg-transparent-dark"}>
+    <div className={"trello-clickable p-2 rounded trello-table-add-column"}>
       <div
         style={{ fontSize: 20 }}
         className={

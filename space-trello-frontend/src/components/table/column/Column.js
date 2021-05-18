@@ -6,7 +6,7 @@ import Card from "./card/Card";
 const Column = ({ column }) => {
   const { title, cards } = column;
   return (
-    <div className={"p-2 column rounded"}>
+    <div className={"p-2 trello-column rounded"}>
       <ColumnHeader title={title} />
       {cards.map((c) => (
         <Card key={c.id} card={c} />

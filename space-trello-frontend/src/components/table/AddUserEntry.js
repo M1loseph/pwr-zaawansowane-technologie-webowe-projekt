@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
-import UserIconSmall from "./UserIcon";
+import UserIcon from "../common/UserIcon";
 
 const AddUserEntry = ({ user }) => {
   const { id, name, surname } = user;
@@ -14,13 +14,13 @@ const AddUserEntry = ({ user }) => {
     <Container fluid className="mb-3">
       <Row className={"align-items-center"}>
         <Col md={2}>
-          <UserIconSmall user={user} />
+          <UserIcon user={user} />
         </Col>
         <Col md={4}>{name}</Col>
         <Col md={4}>{surname}</Col>
         <Col md={2}>
           <i
-            className="fas fa-user-plus clickable"
+            className="fas fa-user-plus trello-clickable"
             onClick={inviteUser}
           ></i>
         </Col>

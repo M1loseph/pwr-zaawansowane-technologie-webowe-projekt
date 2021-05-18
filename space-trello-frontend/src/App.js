@@ -2,8 +2,8 @@ import React from "react";
 import TablePage from "./pages/TablePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import UserSettingsPage from "./pages/UserSettingsPage";
-import UserTablesPage from "./pages/UserSettingsPage";
+import SettingsPage from "./pages/SettingsPage";
+import TablesMenuPage from "./pages/TablesMenuPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
@@ -20,13 +20,13 @@ function App() {
           <TablePage />
         </Route>
         <Route exact path="/tables">
-          <UserTablesPage />
+          <TablesMenuPage />
         </Route>
         <Route exact path="/table">
           <TablePage />
         </Route>
         <Route exact path="/settings">
-          <UserSettingsPage />
+          <SettingsPage />
         </Route>
       </Switch>
     </Router>

@@ -15,7 +15,7 @@ const CardHeader = ({ card, hovering }) => {
         {hovering && (
           <i
             onClick={() => setShowModal(true)}
-            className="ml-auto fas fa-pen fa-lg clickable"
+            className="ml-auto fas fa-pen fa-lg trello-clickable"
           ></i>
         )}
       </Row>

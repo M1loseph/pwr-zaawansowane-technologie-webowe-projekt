@@ -8,3 +8,9 @@
   color: $font-primary;
   font-weight: 500;
 }
+
+@mixin round-icon-mixin($size) {
+  width: $size;
+  height: $size;
+  object-fit: cover;
+}
