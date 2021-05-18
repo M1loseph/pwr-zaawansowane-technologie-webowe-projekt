@@ -25,6 +25,9 @@ function App() {
         <Route exact path="/table">
           <TablePage />
         </Route>
+        <Route exact path="/settings">
+          <UserSettingsPage />
+        </Route>
       </Switch>
     </Router>
   );

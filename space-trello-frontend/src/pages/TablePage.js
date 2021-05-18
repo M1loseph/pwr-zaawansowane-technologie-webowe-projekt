@@ -3,6 +3,7 @@ import Column from "../components/table/column/Column";
 import TablePageHeader from "../components/table/TablePageHeader";
 import AddColumnButton from "../components/table/column/AddColumnButton";
 import ColumnWrapper from "../components/table/column/ColumnWrapper";
+import TableBackground from "../components/table/TableBackground";
 
 const TablePage = () => {
   const columns = [
@@ -19,13 +20,7 @@ const TablePage = () => {
   ];
   const bgImage = "https://i.imgur.com/IEEifKy.jpg";
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        height: "100vh",
-        backgroundSize: "cover",
-      }}
-    >
+    <TableBackground bgImage={bgImage}>
       <TablePageHeader />
       <div className={"d-flex flex-row overflow-auto pl-3"}>
         {columns.map((column) => (
@@ -37,7 +32,7 @@ const TablePage = () => {
           <AddColumnButton />
         </ColumnWrapper>
       </div>
-    </div>
+    </TableBackground>
   );
 };
 
