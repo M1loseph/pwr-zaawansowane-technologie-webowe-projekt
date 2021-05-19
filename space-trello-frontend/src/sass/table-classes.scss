@@ -16,4 +16,6 @@
 .trello-column-wrapper {
   width: $column-width;
   min-width: $column-width;
+  height: 100%;
+  max-height: 100%;
 }

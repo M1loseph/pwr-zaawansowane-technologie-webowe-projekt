@@ -6,8 +6,8 @@ import Header from "../components/common/Header";
 import StickyUserIcon from "../components/common/StickyUserIcon";
 import TableCard from "../components/tables/TableCard";
 
-const TablesMenuPage = () => {
-  const user = {
+const TablesMenuPage = ({ user }) => {
+  user = {
     src: "https://thispersondoesnotexist.com/image",
     color: "magenta",
   };

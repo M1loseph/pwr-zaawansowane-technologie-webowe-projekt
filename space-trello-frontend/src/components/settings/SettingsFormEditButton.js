@@ -1,13 +1,13 @@
 import React from "react";
 
-const SettingsFormEditButton = ({ editable, setEditable }) => {
+const SettingsFormEditButton = ({ setEdit }) => {
   return (
     <button
-      onClick={() => setEditable(!editable)}
+      onClick={() => setEdit(true)}
       type="button"
-      className="btn btn-sm trello-btn-dark "
+      className="btn trello-btn-dark "
     >
-      {editable ? "EDYTUJ" : "ZAPISZ"}
+      EDYTUJ
     </button>
   );
 };

@@ -8,6 +8,7 @@ const TableBackground = ({ children, bgImage }) => {
         height: "100vh",
         backgroundSize: "cover",
       }}
+      className="d-flex flex-column"
     >
       {children}
     </div>

@@ -97,5 +97,16 @@
 }
 
 .trello-settings-icon {
-    @include round-icon-mixin($icon-settings-size)
+  @include round-icon-mixin($icon-settings-size);
+}
+
+.trello-settings-font {
+  @include font-primary-mixin;
+  font-size: 20px;
+  margin: 0;
+}
+
+.trello-settings-label-font {
+  color: $font-secondary;
+  margin: 0;
 }

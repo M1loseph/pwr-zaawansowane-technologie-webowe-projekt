@@ -3,11 +3,11 @@ import Background from "../components/common/Background";
 import Header from "../components/common/Header";
 import SettingsForm from "../components/settings/SettingsForm";
 
-const SettingsPage = () => {
+const SettingsPage = ({ user }) => {
   return (
     <Background>
       <Header />
-      <SettingsForm />
+      <SettingsForm user={user} />
     </Background>
   );
 };

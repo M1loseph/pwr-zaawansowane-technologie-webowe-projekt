@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TablePage from "./pages/TablePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -7,6 +7,7 @@ import TablesMenuPage from "./pages/TablesMenuPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
+  const [user, setUser] = useState(null);
   return (
     <Router>
       <Switch>
