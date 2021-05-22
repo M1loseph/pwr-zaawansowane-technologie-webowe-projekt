@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FormBase from "../helper/FormBase";
+import FormHeader from "../common/FormHeader";
+import FormMainButton from "../common/FormMainButton";
+import FormFooter from "../common/FormFooter";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   return (
     <FormBase>
       <Form>
-        <p className="h4 text-center mb-4 text-white">Witaj w Space Trello!</p>
+        <FormHeader>Witaj w Space Trello!</FormHeader>
         <Form.Group>
           <Form.Label className="form-label">EMAIL</Form.Label>
           <Form.Control
@@ -36,14 +38,9 @@ const LoginForm = () => {
             }
           />
         </Form.Group>
-        <div className="text-center mt-5 mb-3">
-          <button
-            type="button"
-            className="w-100 btn trello-btn-primary m-0 mb-1"
-          >
-            Zaloguj się
-          </button>
-        </div>
+        <FormFooter>
+          <FormMainButton>Zaloguj się</FormMainButton>
+        </FormFooter>
         <Link to="/register" className="trello-form-clickable">
           Zarejestruj się
         </Link>

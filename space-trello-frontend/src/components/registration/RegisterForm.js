@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FormBase from "../helper/FormBase";
+import FormHeader from "../common/FormHeader";
+import FormMainButton from "../common/FormMainButton";
+import FormFooter from "../common/FormFooter";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +22,7 @@ const RegisterForm = () => {
   return (
     <FormBase>
       <Form>
-        <p className="h4 text-center mb-4 text-white">Stwórz konto</p>
+        <FormHeader>Stwórz konto</FormHeader>
         <Form.Group>
           <Form.Label className="form-label">IMIĘ</Form.Label>
           <Form.Control
@@ -65,14 +68,9 @@ const RegisterForm = () => {
             onChange={(e) => update(e, "passwordRepeated")}
           />
         </Form.Group>
-        <div className="text-center mt-5 mb-3">
-          <button
-            type="button"
-            className="w-100 btn trello-btn-primary m-0 mb-1"
-          >
-            Zarejestruj się
-          </button>
-        </div>
+        <FormFooter>
+          <FormMainButton>Zarejestruj się</FormMainButton>
+        </FormFooter>
         <Link to="/" className="trello-form-clickable">
           Zaloguj się
         </Link>

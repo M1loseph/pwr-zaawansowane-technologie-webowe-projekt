@@ -29,10 +29,24 @@
 }
 
 .trello-header {
+  background-color: $bg-secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trello-header-logo {
   font-size: $header-font-size;
   white-space: nowrap;
   color: $font-primary;
   font-weight: bold;
+}
+
+.trello-header-rounding {
+  background-color: $bg-primary;
+  height: 50px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 }
 
 .trello-header-container {
@@ -41,4 +55,10 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+}
+
+.trello-settings-modal {
+  @include font-primary-mixin;
+  background-color: $bg-primary;
+  border: none;
 }

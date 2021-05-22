@@ -26,18 +26,6 @@
   background-color: #70707085;
 }
 
-.bg-trello-primary {
-  background-color: #36393f;
-}
-
-.bg-trello-secondary {
-  background-color: #202225;
-}
-
-.bg-trello-tertiary {
-  background-color: #2f3136;
-}
-
 .trello-header {
   height: 120px;
 }
@@ -117,4 +105,8 @@
   @extend .trello-clickable;
   width: 50px;
   height: 50px;
+}
+
+.trello-btn-calcel {
+  background-color: red;
 }
