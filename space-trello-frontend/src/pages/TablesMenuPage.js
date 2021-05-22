@@ -3,8 +3,8 @@ import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Background from "../components/common/Background";
 import Header from "../components/common/Header";
-import StickyUserIcon from "../components/common/StickyUserIcon";
-import TableCard from "../components/tables/TableCard";
+import UserIcon from "../components/common/UserIcon";
+import TableTile from "../components/tables/TableTile";
 
 const TablesMenuPage = ({ user }) => {
   user = {
@@ -45,24 +45,24 @@ const TablesMenuPage = ({ user }) => {
 
   return (
     <Background>
-      <Header />
-      <Link to="/settings">
-        <StickyUserIcon
-          width={55}
-          height={55}
-          right={30}
-          top={30}
-          user={user}
-        />
-      </Link>
+      <Header>
+        <Link to="/settings">
+          <UserIcon user={user} width={50} height={50} />
+        </Link>
+      </Header>
       <Container>
         <h2 className="trello-tables-page-font mb-3">Moje tablice</h2>
         <Row>
           {tables.map((t) => (
-            <TableCard key={t.id} table={t} deleteTable={deleteTable} />
+            <TableTile key={t.id} table={t} deleteTable={deleteTable} />
           ))}
         </Row>
         <h2 className="trello-tables-page-font mb-3">Współprace</h2>
+        <Row>
+          {tables.map((t) => (
+            <TableTile key={t.id} table={t} />
+          ))}
+        </Row>
       </Container>
     </Background>
   );

@@ -23,3 +23,22 @@
   font-weight: bold;
   color: $font-primary;
 }
+
+.trello-tile-title-bg {
+  background-color: $table-tile-bg-color;
+}
+
+.trello-header {
+  font-size: $header-font-size;
+  white-space: nowrap;
+  color: $font-primary;
+  font-weight: bold;
+}
+
+.trello-header-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}

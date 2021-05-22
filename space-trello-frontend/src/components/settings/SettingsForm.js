@@ -3,6 +3,10 @@ import { Button, Row, Form, Image } from "react-bootstrap";
 import SettingsFormEditButton from "./SettingsFormEditButton";
 import FormBase from "../helper/FormBase";
 import FlexRow from "../helper/FlexRow";
+import SettingsFormGroup from "./SettingsFormGroup";
+import SettingsFormLabel from "./SettingsFormLabel";
+import SettingsFormInput from "./SettingsFormInput";
+import SettingsFromInput from "./SettingsFormInput";
 
 const SettingsForm = ({ user }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +14,7 @@ const SettingsForm = ({ user }) => {
     lastName: "Kowalski",
     email: "jan.kowalski@gmail.com",
     url: "https://thispersondoesnotexist.com/image",
+    color: "#258162",
   });
   const update = (e, key) => {
     setFormData(Object.assign({}, formData, { [key]: e.target.value }));
@@ -19,59 +24,41 @@ const SettingsForm = ({ user }) => {
 
   return (
     <FormBase sm={12} md={10} lg={8} xl={7}>
-      <Image
-        src={formData.url}
-        className="rounded-circle trello-settings-icon"
-      />
-      <div className="py-2">
-        <p className="form-label trello-settings-label-font">IMIĘ</p>
+      <FlexRow>
+        <Image
+          src={formData.url}
+          className="rounded-circle trello-settings-icon"
+        />
+        <div className="ml-5">
+          <SettingsFormLabel>Preferowany kolor</SettingsFormLabel>
+          <div
+            className="rounded-circle trello-settings-color-container mt-2"
+            style={{ backgroundColor: formData.color }}
+          ></div>
+        </div>
+      </FlexRow>
+      <SettingsFormGroup>
+        <SettingsFormLabel>IMIĘ</SettingsFormLabel>
         <FlexRow>
-          <div className="w-75 ">
-            <p className="trello-settings-font">{formData.name}</p>
-          </div>
+          <SettingsFormInput>{formData.name}</SettingsFormInput>
           <SettingsFormEditButton setEdit={setEditName} />
         </FlexRow>
-      </div>
-      <div className="py-2">
-        <p className="form-label trello-settings-label-font">NAZWISKO</p>
+      </SettingsFormGroup>
+      <SettingsFormGroup>
+        <SettingsFormLabel>NAZWISKO</SettingsFormLabel>
         <FlexRow>
-          <div className="w-75 ">
-            <p className="trello-settings-font">{formData.lastName}</p>
-          </div>
+          <SettingsFromInput>{formData.lastName}</SettingsFromInput>
           <SettingsFormEditButton setEdit={setEditLastName} />
         </FlexRow>
-      </div>
-      <div className="py-2">
-        <p className="form-label trello-settings-label-font">EMAIL</p>
+      </SettingsFormGroup>
+      <SettingsFormGroup>
+        <SettingsFormLabel>EMAIL</SettingsFormLabel>
         <FlexRow>
-          <div className="w-75 ">
-            <p className="trello-settings-font mt-3">{formData.email}</p>
-          </div>
+          <SettingsFormInput className="mt-2">
+            {formData.email}
+          </SettingsFormInput>
         </FlexRow>
-      </div>
-      {/* </Form.Group>
-        <Form.Group>
-          <Form.Label className="form-label">NAZWISKO</Form.Label>
-          <FlexRow>
-            <Form.Control
-              type="text"
-              className="form-control trello-form-input w-75"
-              value={formData.lastName}
-              onChange={(e) => update(e, "lastName")}
-              disabled={disabledLastName}
-            />
-            <SettingsFormEditButton />
-          </FlexRow>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className="form-label">EMAIL</Form.Label>
-          <Form.Control
-            type="email"
-            className="form-control trello-form-input w-75 "
-            value={formData.email}
-            disabled
-          />
-        </Form.Group> */}
+      </SettingsFormGroup>
       <div className="mt-4">
         <p className="trello-form-clickable text-align-left">ZMIEŃ HASŁO</p>
       </div>

@@ -4,7 +4,7 @@ import TablePageHeader from "../components/table/TablePageHeader";
 import AddColumnButton from "../components/table/column/AddColumnButton";
 import ColumnWrapper from "../components/table/column/ColumnWrapper";
 import TableBackground from "../components/table/TableBackground";
-import { Container } from "react-bootstrap";
+import TablePageBody from "../components/table/TablePageBody";
 
 const TablePage = () => {
   const columns = [
@@ -31,10 +31,7 @@ const TablePage = () => {
   return (
     <TableBackground bgImage={bgImage}>
       <TablePageHeader />
-      <div
-        style={{ flex: 1 }}
-        className={"d-flex flex-row h-100 overflow-auto pl-3 pb-5"}
-      >
+      <TablePageBody>
         {columns.map((column) => (
           <ColumnWrapper key={column.id}>
             <Column column={column} />
@@ -43,7 +40,7 @@ const TablePage = () => {
         <ColumnWrapper>
           <AddColumnButton />
         </ColumnWrapper>
-      </div>
+      </TablePageBody>
     </TableBackground>
   );
 };

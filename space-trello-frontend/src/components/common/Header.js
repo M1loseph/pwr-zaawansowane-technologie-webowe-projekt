@@ -5,12 +5,13 @@ const Header = ({ children }) => {
   return (
     <div className="bg-trello-secondary">
       <div
-        style={{ fontSize: 40 }}
         className={
-          "justify-content-center d-flex align-items-center trello-header text-white font-weight-bold"
+          "justify-content-center d-flex align-items-center "
         }
       >
+        <div className="trello-header-container "></div>
         <Logo />
+        <div className="trello-header-container ">{children}</div>
       </div>
       <div
         className="bg-trello-primary"

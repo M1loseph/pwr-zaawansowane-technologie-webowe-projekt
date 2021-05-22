@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useHovering } from "use-hovering";
 import FlexRow from "../helper/FlexRow";
 
-const TableCard = ({ table, deleteTable }) => {
+const TableTile = ({ table, deleteTable }) => {
   const { bgImage, title, id } = table;
   const rootRef = useRef(null);
   const hovering = useHovering(rootRef);
@@ -16,14 +16,14 @@ const TableCard = ({ table, deleteTable }) => {
         ref={rootRef}
       >
         <FlexRow className="w-100 trello-tables-page-font justify-content-between">
-          <div className="rounded m-2 p-1">
-            <h4 className="trello-tables-page-font">{title}</h4>
+          <div className="rounded m-2 p-1 trello-tile-title-bg ">
+            <h4 className="trello-tables-page-font m-0 my-1">{title}</h4>
           </div>
-          {hovering && (
+          {!!deleteTable && hovering && (
             <i
               className="fas fa-trash fa-lg m-3"
               onClick={(e) => {
-                  e.preventDefault()
+                e.preventDefault();
                 deleteTable(id);
               }}
             ></i>
@@ -34,4 +34,4 @@ const TableCard = ({ table, deleteTable }) => {
   );
 };
 
-export default TableCard;
+export default TableTile;
