@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Image } from "react-bootstrap";
 import SettingsFormEditButton from "./SettingsFormEditButton";
 import FormBase from "../helper/FormBase";
@@ -9,8 +9,9 @@ import SettingsFormInput from "./SettingsFormInput";
 import SettingsFromInput from "./SettingsFormInput";
 import SettingsModal from "./SettingsModal";
 import SettingsModalColor from "./SettingsModalColor";
+import SettingsModalFile from "./SettingsModalFile";
 
-const SettingsForm = ({ user }) => {
+const SettingsView = ({ user }) => {
   const [formData, setFormData] = useState({
     name: "Jan",
     lastName: "Kowalski",
@@ -22,6 +23,7 @@ const SettingsForm = ({ user }) => {
   const [editName, setEditName] = useState(false);
   const [editLastName, setEditLastName] = useState(false);
   const [editColor, setEditColor] = useState(false);
+  const [editPicture, setEditPicture] = useState(false);
 
   return (
     <React.Fragment>
@@ -29,7 +31,8 @@ const SettingsForm = ({ user }) => {
         <FlexRow>
           <Image
             src={formData.url}
-            className="rounded-circle trello-settings-icon"
+            onClick={() => setEditPicture(true)}
+            className="rounded-circle trello-settings-icon trello-clickable"
           />
           <div className="ml-5">
             <SettingsFormLabel>Preferowany kolor</SettingsFormLabel>
@@ -101,8 +104,20 @@ const SettingsForm = ({ user }) => {
         }}
         initialField={formData.color}
       />
+      <SettingsModalFile
+        show={editPicture}
+        onCancel={() => setEditPicture(false)}
+        onConfirm={async (value) => {
+          setEditPicture(false);
+        //   const res = await fetch("http://localhost", {
+        //     method: "POST",
+        //     body: JSON.stringify({ data: value }),
+        //   });
+        }}
+        initialField={formData.url}
+      />
     </React.Fragment>
   );
 };
 
-export default SettingsForm;
+export default SettingsView;

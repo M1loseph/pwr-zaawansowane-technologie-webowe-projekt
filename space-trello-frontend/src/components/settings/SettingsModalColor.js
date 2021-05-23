@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmButton from "../common/ConfirmButton";
 import DiscardButton from "../common/DiscardButton";
@@ -7,6 +7,9 @@ import { CirclePicker } from "react-color";
 
 const SettingsModalColor = ({ onConfirm, onCancel, initialField, show }) => {
   const [color, setColor] = useState(initialField);
+  useEffect(() => {
+    setColor(initialField);
+  }, [show]);
   return (
     <Modal
       show={show}
