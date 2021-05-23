@@ -12,8 +12,8 @@ const Card = ({ card }) => {
     description: "Opis mojego czegoś tam",
     date: new Date().toISOString().split("T")[0],
     categories: [
-      { id: 1, color: "red" },
-      { id: 2, color: "lime" },
+      { id: 1, title: "Hello", color: "red" },
+      { id: 2, title: "World", color: "lime" },
     ],
     users: [
       {

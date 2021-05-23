@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import UserIcon from "../common/UserIcon";
 
 const AddUserEntry = ({ user }) => {
-  const { id, name, surname } = user;
+  const { id, name, lastName } = user;
 
   const inviteUser = () => {
     console.log("inviting user " + id);
@@ -17,7 +17,7 @@ const AddUserEntry = ({ user }) => {
           <UserIcon user={user} />
         </Col>
         <Col md={4}>{name}</Col>
-        <Col md={4}>{surname}</Col>
+        <Col md={4}>{lastName}</Col>
         <Col md={2}>
           <i
             className="fas fa-user-plus trello-clickable"
