@@ -14,3 +14,13 @@
   height: $size;
   object-fit: cover;
 }
+
+@mixin padding-horizontal($padding) {
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+@mixin padding-vertical($padding) {
+  padding-top: $padding;
+  padding-bottom: $padding;
+}

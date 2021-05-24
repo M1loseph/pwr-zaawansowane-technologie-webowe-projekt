@@ -11,6 +11,22 @@
 
 .trello-column {
   background-color: #dcdcdc;
+
+  ::-webkit-scrollbar {
+    width: 13px;
+    height: 13px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $column-scroll-thumb;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: $column-scorll-thumb-hover;
+  }
+  ::-webkit-scrollbar-track {
+    background: $column-scroll-track;
+    border-radius: 10px;
+  }
 }
 
 .trello-column-wrapper {

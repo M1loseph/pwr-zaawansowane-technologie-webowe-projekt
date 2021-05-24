@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useHovering } from "use-hovering";
 import FlexRow from "../helper/FlexRow";
 
@@ -9,9 +9,9 @@ const TableTile = ({ table, deleteTable }) => {
   const hovering = useHovering(rootRef);
 
   return (
-    <Link to="/table">
+    <Link to="/table" className="m-3 my-5">
       <div
-        className="trello-table-card m-3 my-5 rounded"
+        className="trello-table-card rounded"
         style={{ backgroundImage: `url(${bgImage})` }}
         ref={rootRef}
       >
