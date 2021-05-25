@@ -1,9 +1,12 @@
 import React from "react";
 import { Image } from "react-bootstrap";
 
-const AddColumnButton = () => {
+const AddColumnButton = ({ addColumn }) => {
   return (
-    <div className={"trello-clickable p-2 rounded trello-table-add-column"}>
+    <div
+      onClick={addColumn}
+      className={"trello-clickable p-2 rounded trello-table-add-column"}
+    >
       <div
         style={{ fontSize: 20 }}
         className={

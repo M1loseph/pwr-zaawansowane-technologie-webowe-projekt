@@ -51,7 +51,11 @@
   font-weight: $font-weight-primary;
 }
 
-.trello-table-name {
-    border: none;
-    background-color: transparent;
+.trello-editable-field {
+  border: none;
+  background-color: transparent;
+}
+
+.table-header-font {
+  @include font-primary-mixin;
 }

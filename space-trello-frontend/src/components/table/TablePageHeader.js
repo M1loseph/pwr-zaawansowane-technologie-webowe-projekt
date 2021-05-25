@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UserIcon from "../common/UserIcon";
 import AddUsersToTableModal from "./AddUsersToTableModal";
+import EditableField from "./column/card/helper/EditableFiels";
 
 const TablePageHeader = ({ users }) => {
   users = [
@@ -87,15 +88,18 @@ const TablePageHeader = ({ users }) => {
   ];
 
   const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("Moja Todo Lista");
 
   return (
     <React.Fragment>
       <div className="container-fluid">
         <div className="row p-4">
           <div className="table-header p-3 rounded">
-            <h2 className="text-white font-weight-bold mb-3">
-              Moja ToDo Lista
-            </h2>
+            <EditableField
+              className="h2 mb-3 table-header-font"
+              value={title}
+              setValue={setTitle}
+            />
             <div className="row">
               {users.map((user) => (
                 <UserIcon key={user.id} user={user} />

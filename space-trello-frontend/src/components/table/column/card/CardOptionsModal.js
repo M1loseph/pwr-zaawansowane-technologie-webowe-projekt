@@ -4,6 +4,7 @@ import UserIcon from "../../../common/UserIcon";
 import Category from "./category/Category";
 import CardIconContainer from "./CardIconContainer";
 import FlexRow from "../../../helper/FlexRow";
+import EditableField from "./helper/EditableFiels";
 
 const CardOptionsModal = ({ showModal, setShowModal, card }) => {
   const { title, description, date, users, categories } = card;
@@ -23,7 +24,11 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
             <CardIconContainer>
               <i className="fas fa-list fa-lg mr-2"></i>
             </CardIconContainer>
-            <h4 className="font-weight-bold">{title}</h4>
+            <EditableField
+              className="font-weight-bold"
+              value={title}
+              setValue={(v) => console.log(v)}
+            />
           </Row>
           <Row>
             <CardIconContainer />
@@ -31,9 +36,12 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
               <p className="trello-card-label-label mt-2">Etykiety</p>
               <FlexRow>
                 {categories.map((c) => (
-                  <Category category={c} />
+                  <Category key={c.id} category={c} />
                 ))}
-                <Image className="ml-2 trello-clickable" src="/assets/addCategoryButton.svg" />
+                <Image
+                  className="ml-2 trello-clickable"
+                  src="/assets/addCategoryButton.svg"
+                />
               </FlexRow>
             </div>
           </Row>
@@ -50,7 +58,10 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
             {users.map((u) => (
               <UserIcon key={u.id} user={u} />
             ))}
-            <Image className="ml-2 trello-clickable" src="/assets/addUserToTaskButton.svg" />
+            <Image
+              className="ml-2 trello-clickable"
+              src="/assets/addUserToTaskButton.svg"
+            />
           </Row>
         </Container>
       </Modal.Body>

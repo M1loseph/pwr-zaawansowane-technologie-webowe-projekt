@@ -1,11 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import CardHeader from "./CardHeader";
 import { useHovering } from "use-hovering";
+import EditableField from "./helper/EditableFiels";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../../../common/Constants";
 
 const Card = ({ card }) => {
-  const rootRef = useRef();
-  const [showModal, setShowModal] = useState(false);
+  const rootRef = useRef(null);
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.CARD,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
   const hovering = useHovering(rootRef);
   card = {
     title: "Testowanko",
@@ -40,17 +48,28 @@ const Card = ({ card }) => {
     ],
   };
 
+  const setRefs = (ref) => {
+    rootRef.current = ref;
+    drag(ref);
+  };
+
   const { title } = card;
 
   return (
-    <React.Fragment>
-      <Col ref={rootRef} className={"bg-white rounded"} style={{}}>
-        <CardHeader card={card} hovering={hovering} />
-        <Row style={{ fontSize: 20 }} className={"px-3 pb-3 font-weight-bold"}>
-          {title}
-        </Row>
-      </Col>
-    </React.Fragment>
+    <div
+      ref={setRefs}
+      className="col bg-white rounded"
+      style={{ opacity: isDragging ? 0 : 1, cursor: "grab" }}
+    >
+      <CardHeader card={card} hovering={hovering} />
+      <Row style={{ fontSize: 20 }} className={"px-3 pb-3"}>
+        <EditableField
+          className="font-weight-bold"
+          value={title}
+          setValue={(v) => console.log(v)}
+        />
+      </Row>
+    </div>
   );
 };
 

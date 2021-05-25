@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Column from "../components/table/column/Column";
 import TablePageHeader from "../components/table/TablePageHeader";
 import AddColumnButton from "../components/table/column/AddColumnButton";
 import ColumnWrapper from "../components/table/column/ColumnWrapper";
 import TableBackground from "../components/table/TableBackground";
 import TablePageBody from "../components/table/TablePageBody";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const TablePage = () => {
-  const columns = [
+  const [columns, setColumns] = useState([
     {
       id: 0,
       title: "Hello",
@@ -26,22 +28,34 @@ const TablePage = () => {
         { id: 12, users: [] },
       ],
     },
-  ];
+  ]);
+  const addColumn = () => {
+    setColumns([
+      ...columns,
+      {
+        id: Math.max(...columns.map((c) => c.id)),
+        title: "Nowa kolumna",
+        cards: [],
+      },
+    ]);
+  };
   const bgImage = "https://i.imgur.com/IEEifKy.jpg";
   return (
-    <TableBackground bgImage={bgImage}>
-      <TablePageHeader />
-      <TablePageBody>
-        {columns.map((column) => (
-          <ColumnWrapper key={column.id}>
-            <Column column={column} />
+    <DndProvider backend={HTML5Backend}>
+      <TableBackground bgImage={bgImage}>
+        <TablePageHeader />
+        <TablePageBody>
+          {columns.map((column) => (
+            <ColumnWrapper key={column.id}>
+              <Column column={column} />
+            </ColumnWrapper>
+          ))}
+          <ColumnWrapper>
+            <AddColumnButton addColumn={addColumn} />
           </ColumnWrapper>
-        ))}
-        <ColumnWrapper>
-          <AddColumnButton />
-        </ColumnWrapper>
-      </TablePageBody>
-    </TableBackground>
+        </TablePageBody>
+      </TableBackground>
+    </DndProvider>
   );
 };
 
