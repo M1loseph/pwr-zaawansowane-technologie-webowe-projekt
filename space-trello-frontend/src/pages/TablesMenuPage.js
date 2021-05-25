@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Background from "../components/common/Background";
 import Header from "../components/common/Header";
 import UserIcon from "../components/common/UserIcon";
+import CreateTableButton from "../components/tables/CreateTableButton";
 import TableTile from "../components/tables/TableTile";
 
 const TablesMenuPage = ({ user }) => {
@@ -56,6 +57,7 @@ const TablesMenuPage = ({ user }) => {
           {tables.map((t) => (
             <TableTile key={t.id} table={t} deleteTable={deleteTable} />
           ))}
+          <CreateTableButton />
         </Row>
         <h2 className="trello-tables-page-font mb-3">Współprace</h2>
         <Row>

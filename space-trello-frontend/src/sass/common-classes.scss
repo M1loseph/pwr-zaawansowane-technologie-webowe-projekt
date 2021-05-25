@@ -92,3 +92,10 @@
     background-color: #d3d3d3;
   }
 }
+
+.trello-add-table {
+  @include font-primary-mixin;
+  background-color: $bg-quaternary;
+  font-size: large;
+  justify-content: center;
+}
