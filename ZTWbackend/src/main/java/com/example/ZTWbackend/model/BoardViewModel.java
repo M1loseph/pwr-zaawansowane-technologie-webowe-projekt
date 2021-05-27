@@ -3,15 +3,9 @@ package com.example.ZTWbackend.model;
 public class BoardViewModel {
     private String boardTitle;
     private String description;
-    private String img;
+    private Integer img;
 
-    public BoardViewModel() {
-    }
-
-    public BoardViewModel(String boardTitle, String description, String img) {
-        this.boardTitle = boardTitle;
-        this.description = description;
-        this.img = img;
+    BoardViewModel() {
     }
 
     public String getBoardTitle() {
@@ -30,11 +24,11 @@ public class BoardViewModel {
         this.description = description;
     }
 
-    public String getImg() {
+    public Integer getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(Integer img) {
         this.img = img;
     }
 }

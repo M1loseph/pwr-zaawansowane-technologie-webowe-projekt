@@ -3,7 +3,6 @@ package com.example.ZTWbackend.controller;
 import com.example.ZTWbackend.exceptions.ResourceNotFoundException;
 import com.example.ZTWbackend.model.*;
 import com.example.ZTWbackend.repository.CardRepository;
-import com.example.ZTWbackend.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +19,26 @@ public class CardController {
     private CardRepository cardRepository;
 
     @GetMapping("card")
-    public List<Card> getCard(){
+    public List<CardModel> getCard(){
         return this.cardRepository.findAll();
     }
 
     @GetMapping("/card/{id}")
-    public ResponseEntity<Card> getCardId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
-        Card card = cardRepository.findById(userId)
+    public ResponseEntity<CardModel> getCardId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+        CardModel card = cardRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Card not found::"+userId ));
         return ResponseEntity.ok().body(card);
     }
     @PostMapping("card")
-    public Card createCard(@RequestBody Card card){
+    public CardModel createCard(@RequestBody CardModel card){
         return this.cardRepository.save(card);
     }
 
     @PutMapping("card/{id}")
-    public ResponseEntity<Card> updateCard(@PathVariable(value = "id") Long boardId,
-                                             @Valid @RequestBody Card  cardDetails) throws ResourceNotFoundException {
+    public ResponseEntity<CardModel> updateCard(@PathVariable(value = "id") Long boardId,
+                                                @Valid @RequestBody CardModel cardDetails) throws ResourceNotFoundException {
 
-        Card card = cardRepository.findById(boardId)
+        CardModel card = cardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found::" + boardId));
 
         card.setCardTitle(cardDetails.getCardTitle());
@@ -50,9 +49,9 @@ public class CardController {
     }
 
     @PostMapping("card/addLabel/{id}")
-    public Card addLabel(@PathVariable(value = "id") Long cardID, @RequestBody Label label) throws ResourceNotFoundException{
+    public CardModel addLabel(@PathVariable(value = "id") Long cardID, @RequestBody LabelModel label) throws ResourceNotFoundException{
 
-        Card card = cardRepository.findById(cardID)
+        CardModel card = cardRepository.findById(cardID)
                 .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + cardID));
 
         card.getLabeList().add(label);
@@ -64,7 +63,7 @@ public class CardController {
     @DeleteMapping("card/{id}")
     public Map<String, Boolean> deleteCard(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
 
-        Card card = cardRepository.findById(userId)
+        CardModel card = cardRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found::"+userId));
 
         this.cardRepository.delete(card);

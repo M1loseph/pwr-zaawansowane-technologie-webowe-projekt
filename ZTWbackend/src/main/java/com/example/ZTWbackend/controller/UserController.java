@@ -1,8 +1,8 @@
 package com.example.ZTWbackend.controller;
 
 import com.example.ZTWbackend.exceptions.ResourceNotFoundException;
-import com.example.ZTWbackend.model.Board;
-import com.example.ZTWbackend.model.User;
+import com.example.ZTWbackend.model.BoardModel;
+import com.example.ZTWbackend.model.UserModel;
 import com.example.ZTWbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +21,27 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("users")
-    public List<User> getUsers(){
+    public List<UserModel> getUsers(){
         return this.userRepository.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
-        User user = userRepository.findById(userId)
+    public ResponseEntity<UserModel> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
+        UserModel user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found::"+userId ));
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping("users")
-    public User createUser(@RequestBody User user){
-        User insertUser =  new User();
+    public UserModel createUser(@RequestBody UserModel user){
+        UserModel insertUser =  new UserModel();
         insertUser.setFirstName(user.getFirstName());
         insertUser.setLastName(user.getLastName());
         insertUser.setPassword(user.getPassword());
         insertUser.setPreferredColor(user.getPreferredColor());
         insertUser.setEmail(user.getEmail());
 
-        for(Board temp: user.getBoardList() ){
+        for(BoardModel temp: user.getBoardList() ){
             insertUser.getBoardList().add(temp);
             temp.getUserList().add(insertUser);
         }
@@ -50,9 +50,9 @@ public class UserController {
 
 
     @PostMapping("users/addBoard/{id}")
-    public User addBoard(@PathVariable(value = "id") Long userId, @RequestBody Board board) throws ResourceNotFoundException{
+    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException{
 
-        User user = userRepository.findById(userId)
+        UserModel user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
 
         user.getBoardList().add(board);
@@ -62,10 +62,10 @@ public class UserController {
     }
 
     @PutMapping("users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId,
-                                                   @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
+    public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId,
+                                                @Valid @RequestBody UserModel userDetails) throws ResourceNotFoundException {
 
-        User user = userRepository.findById(userId)
+        UserModel user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
 
         user.setFirstName(userDetails.getFirstName());
@@ -75,7 +75,7 @@ public class UserController {
         user.setPassword(userDetails.getPassword());
         user.setPreferredColor(userDetails.getPreferredColor());
 
-        for(Board temp: userDetails.getBoardList() ){
+        for(BoardModel temp: userDetails.getBoardList() ){
                 user.getBoardList().add(temp);
                 temp.getUserList().add(user);
         }
@@ -85,7 +85,7 @@ public class UserController {
 
     @DeleteMapping("users/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
-        User user = userRepository.findById(userId)
+        UserModel user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found::"+userId));
 
         this.userRepository.delete(user);

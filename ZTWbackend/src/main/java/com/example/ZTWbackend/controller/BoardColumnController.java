@@ -3,8 +3,6 @@ package com.example.ZTWbackend.controller;
 import com.example.ZTWbackend.exceptions.ResourceNotFoundException;
 import com.example.ZTWbackend.model.*;
 import com.example.ZTWbackend.repository.BoardColumnRepository;
-import com.example.ZTWbackend.repository.LabelRepository;
-import com.example.ZTWbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,26 +21,26 @@ public class BoardColumnController {
     private BoardColumnRepository boardColumnRepository;
 
     @GetMapping("boardcolumn")
-    public List<BoardColumn> getBoardColumn(){
+    public List<ColumnModel> getBoardColumn(){
         return this.boardColumnRepository.findAll();
     }
 
     @GetMapping("/boardcolumn/{id}")
-    public ResponseEntity<BoardColumn> getBorderColumnId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
-        BoardColumn boardColumn = boardColumnRepository.findById(userId)
+    public ResponseEntity<ColumnModel> getBorderColumnId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+        ColumnModel boardColumn = boardColumnRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::"+userId ));
         return ResponseEntity.ok().body(boardColumn);
     }
 
     @PostMapping("boardcolumn")
-    public BoardColumn createBorderColumn(@RequestBody BoardColumn boardColumn){
+    public ColumnModel createBorderColumn(@RequestBody ColumnModel boardColumn){
         return this.boardColumnRepository.save(boardColumn);
     }
 
     @PostMapping("boardcolumn/addCard/{id}")
-    public BoardColumn addBorderColumn(@PathVariable(value = "id") Long boardColumnID, @RequestBody Card card) throws ResourceNotFoundException{
+    public ColumnModel addBorderColumn(@PathVariable(value = "id") Long boardColumnID, @RequestBody CardModel card) throws ResourceNotFoundException{
 
-        BoardColumn boardColumn = boardColumnRepository.findById(boardColumnID)
+        ColumnModel boardColumn = boardColumnRepository.findById(boardColumnID)
                 .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardColumnID));
 
         boardColumn.getCardList().add(card);
@@ -54,7 +52,7 @@ public class BoardColumnController {
     @DeleteMapping("boardcolumn/{id}")
     public Map<String, Boolean> deleteBoardColumn(@PathVariable(value = "id") Long boardcolumnId) throws ResourceNotFoundException{
 
-        BoardColumn boardColumn = boardColumnRepository.findById(boardcolumnId)
+        ColumnModel boardColumn = boardColumnRepository.findById(boardcolumnId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardcolumnId));
 
         this.boardColumnRepository.delete(boardColumn);
@@ -64,10 +62,10 @@ public class BoardColumnController {
     }
 
     @PutMapping("boardcolumn/{id}")
-    public ResponseEntity<BoardColumn> updateBoardColumn(@PathVariable(value = "id") Long boardId,
-                                             @Valid @RequestBody BoardColumn boardColumnDetails) throws ResourceNotFoundException {
+    public ResponseEntity<ColumnModel> updateBoardColumn(@PathVariable(value = "id") Long boardId,
+                                                         @Valid @RequestBody ColumnModel boardColumnDetails) throws ResourceNotFoundException {
 
-        BoardColumn boardColumn = boardColumnRepository.findById(boardId)
+        ColumnModel boardColumn = boardColumnRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardId));
 
         boardColumn.setBoardColumnTitle(boardColumnDetails.getBoardColumnTitle());
