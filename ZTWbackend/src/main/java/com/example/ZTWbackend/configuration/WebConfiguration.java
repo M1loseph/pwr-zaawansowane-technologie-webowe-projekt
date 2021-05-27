@@ -13,6 +13,8 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("upload-images", registry);
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {

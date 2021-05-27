@@ -21,27 +21,26 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("users")
-    public List<UserModel> getUsers(){
+    public List<UserModel> getUsers() {
         return this.userRepository.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserModel> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
-        UserModel user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found::"+userId ));
+    public ResponseEntity<UserModel> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Employee not found::" + userId));
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping("users")
-    public UserModel createUser(@RequestBody UserModel user){
-        UserModel insertUser =  new UserModel();
+    public UserModel createUser(@RequestBody UserModel user) {
+        UserModel insertUser = new UserModel();
         insertUser.setFirstName(user.getFirstName());
         insertUser.setLastName(user.getLastName());
         insertUser.setPassword(user.getPassword());
         insertUser.setPreferredColor(user.getPreferredColor());
         insertUser.setEmail(user.getEmail());
 
-        for(BoardModel temp: user.getBoardList() ){
+        for (BoardModel temp : user.getBoardList()) {
             insertUser.getBoardList().add(temp);
             temp.getUserList().add(insertUser);
         }
@@ -50,10 +49,9 @@ public class UserController {
 
 
     @PostMapping("users/addBoard/{id}")
-    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException{
+    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
 
-        UserModel user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
 
         user.getBoardList().add(board);
         board.getUserList().add(user);
@@ -62,11 +60,9 @@ public class UserController {
     }
 
     @PutMapping("users/{id}")
-    public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId,
-                                                @Valid @RequestBody UserModel userDetails) throws ResourceNotFoundException {
+    public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody UserModel userDetails) throws ResourceNotFoundException {
 
-        UserModel user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
 
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
@@ -75,18 +71,17 @@ public class UserController {
         user.setPassword(userDetails.getPassword());
         user.setPreferredColor(userDetails.getPreferredColor());
 
-        for(BoardModel temp: userDetails.getBoardList() ){
-                user.getBoardList().add(temp);
-                temp.getUserList().add(user);
+        for (BoardModel temp : userDetails.getBoardList()) {
+            user.getBoardList().add(temp);
+            temp.getUserList().add(user);
         }
 
         return ResponseEntity.ok(this.userRepository.save(user));
     }
 
     @DeleteMapping("users/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
-        UserModel user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found::"+userId));
+    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
 
         this.userRepository.delete(user);
         Map<String, Boolean> response = new HashMap<>();

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,24 +26,15 @@ public class UserModel {
     @Column(name = "password")
     private String password;
     @Column(name = "preferred_color")
-    private String preferredColor;
+    private Color preferredColor;
+    @Column(name = "avatar")
+    private String avatar;
     @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BoardModel> boardList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<AssignmentModel> assignments;
 
     public UserModel() {
-    }
-
-    public UserModel(long userId, String firstName, String lastName, String email, String password, String preferredColor, List<BoardModel> boardList) {
-        super();
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.preferredColor = preferredColor;
-        this.boardList = boardList;
     }
 
     public long getUserId() {
@@ -85,11 +77,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getPreferredColor() {
+    public Color getPreferredColor() {
         return preferredColor;
     }
 
-    public void setPreferredColor(String preferredColor) {
+    public void setPreferredColor(Color preferredColor) {
         this.preferredColor = preferredColor;
     }
 
@@ -107,5 +99,21 @@ public class UserModel {
 
     public void setDateAssignment(List<AssignmentModel> dateAssignment) {
         this.assignments = dateAssignment;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public List<AssignmentModel> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<AssignmentModel> assignments) {
+        this.assignments = assignments;
     }
 }
