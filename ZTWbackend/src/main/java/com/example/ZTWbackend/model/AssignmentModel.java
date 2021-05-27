@@ -22,17 +22,17 @@ public class AssignmentModel implements Serializable {
     private CardModel card;
 
     @Column(name = "assignment_date")
-    private Date assignentDate;
+    private Date assignmentDate;
 
     AssignmentModel() {
     }
 
-    public Date getAssignentDate() {
-        return assignentDate;
+    public Date getAssignmentDate() {
+        return assignmentDate;
     }
 
-    public void setAssignentDate(Date assignentDate) {
-        this.assignentDate = assignentDate;
+    public void setAssignmentDate(Date assignmentDate) {
+        this.assignmentDate = assignmentDate;
     }
 
     public UserModel getUser() {

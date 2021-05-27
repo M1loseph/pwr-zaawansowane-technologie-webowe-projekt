@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class ColumnModel {
     @Column(name = "card")
     @OneToMany(mappedBy = "boardColumn",cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<CardModel> cardList;
+    private List<CardModel> cardList = new ArrayList<>();
 
     public ColumnModel() {
     }

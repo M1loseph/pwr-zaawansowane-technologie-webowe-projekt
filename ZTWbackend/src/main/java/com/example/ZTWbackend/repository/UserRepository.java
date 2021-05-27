@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
+    public static final String IMAGE_FOLDER = "users";
 }

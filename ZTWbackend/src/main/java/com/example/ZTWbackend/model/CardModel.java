@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "cards")
@@ -28,8 +29,8 @@ public class CardModel {
     private ColumnModel boardColumn;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LabelModel> labelList = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    List<AssignmentModel> assignments;
+    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
+    Set<AssignmentModel> assignments;
 
     public CardModel() {
         super();
@@ -101,11 +102,11 @@ public class CardModel {
         this.labelList = labelList;
     }
 
-    public List<AssignmentModel> getAssignments() {
+    public Set<AssignmentModel> getAssignments() {
         return assignments;
     }
 
-    public void setAssignments(List<AssignmentModel> assignments) {
+    public void setAssignments(Set<AssignmentModel> assignments) {
         this.assignments = assignments;
     }
 }

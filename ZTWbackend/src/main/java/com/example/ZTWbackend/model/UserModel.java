@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -26,13 +27,13 @@ public class UserModel {
     @Column(name = "password")
     private String password;
     @Column(name = "preferred_color")
-    private Color preferredColor;
+    private String preferredColor;
     @Column(name = "avatar")
     private String avatar;
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BoardModel> boardList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<AssignmentModel> assignments;
+    @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<BoardModel> boardList;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<AssignmentModel> assignments;
 
     public UserModel() {
     }
@@ -77,11 +78,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public Color getPreferredColor() {
+    public String getPreferredColor() {
         return preferredColor;
     }
 
-    public void setPreferredColor(Color preferredColor) {
+    public void setPreferredColor(String preferredColor) {
         this.preferredColor = preferredColor;
     }
 
@@ -93,11 +94,11 @@ public class UserModel {
         this.boardList = boardList;
     }
 
-    public List<AssignmentModel> getDateAssignment() {
+    public Set<AssignmentModel> getDateAssignment() {
         return assignments;
     }
 
-    public void setDateAssignment(List<AssignmentModel> dateAssignment) {
+    public void setDateAssignment(Set<AssignmentModel> dateAssignment) {
         this.assignments = dateAssignment;
     }
 
@@ -109,11 +110,11 @@ public class UserModel {
         this.avatar = avatar;
     }
 
-    public List<AssignmentModel> getAssignments() {
+    public Set<AssignmentModel> getAssignments() {
         return assignments;
     }
 
-    public void setAssignments(List<AssignmentModel> assignments) {
+    public void setAssignments(Set<AssignmentModel> assignments) {
         this.assignments = assignments;
     }
 }
