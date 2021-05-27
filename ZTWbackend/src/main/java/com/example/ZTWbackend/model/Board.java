@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "boards")
 public class Board {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long boardId;
@@ -18,6 +17,8 @@ public class Board {
     private String boardTitle;
     @Column(name = "description")
     private String description;
+    @Column(name="img")
+    private String img;
     @OneToMany(mappedBy = "board",  cascade = CascadeType.ALL)
     private List<BoardColumn> boardColumnList = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
@@ -27,19 +28,12 @@ public class Board {
 
     }
 
-    public Board(long boardId, String boardTile, String description, List<BoardColumn> boardColumnList, List<User> userList) {
-        super();
-        this.boardId = boardId;
-        this.boardTitle = boardTile;
-        this.description = description;
-        this.boardColumnList = boardColumnList;
-        this.userList = userList;
+    public String getImg() {
+        return img;
     }
 
-    public Board( String boardTile, String description, List<BoardColumn> boardColumnList) {
-        this.boardTitle = boardTile;
-        this.description = description;
-        this.boardColumnList = boardColumnList;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public long getBoardId() {

@@ -11,7 +11,6 @@ const EditableField = ({ children, state, setState, key, displayKey }) => {
         <Modal.Body>
           <Form></Form>
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="danger">Anuluj</Button>
           <Button variant="primary">Zapisz</Button>
