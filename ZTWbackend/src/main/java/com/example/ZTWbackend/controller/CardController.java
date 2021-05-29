@@ -43,7 +43,7 @@ public class CardController {
 
         card.setCardTitle(cardDetails.getCardTitle());
         card.setDescription(cardDetails.getDescription());
-        card.setData(cardDetails.getData());
+        card.setDate(cardDetails.getDate());
 
         return ResponseEntity.ok(this.cardRepository.save(card));
     }

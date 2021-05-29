@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,25 +15,15 @@ public class LabelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long labelID;
-    @Column(name = "label_type")
-    private String labelType;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "title")
+    private String title;
     @Column(name = "color")
+    @Pattern(regexp = "^#[\\da-fA-F]{6}$")
     private String color;
     @ManyToMany(mappedBy = "labelList")
     private List<CardModel> cardList = new ArrayList<>();
 
     public LabelModel() {
-    }
-
-    public LabelModel(long labelID, String labelType, String description, String color, List<CardModel> cardList) {
-        super();
-        this.labelID = labelID;
-        this.labelType = labelType;
-        this.description = description;
-        this.color = color;
-        this.cardList = cardList;
     }
 
     public long getLabelID() {
@@ -43,20 +34,12 @@ public class LabelModel {
         this.labelID = labelID;
     }
 
-    public String getLabelType() {
-        return labelType;
+    public String getTitle() {
+        return title;
     }
 
-    public void setLabelType(String labelType) {
-        this.labelType = labelType;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getColor() {

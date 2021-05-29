@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table(name = "assignments")
 public class AssignmentModel implements Serializable {
 
     @EmbeddedId
@@ -25,6 +26,14 @@ public class AssignmentModel implements Serializable {
     private Date assignmentDate;
 
     AssignmentModel() {
+    }
+
+    public AssignmentModelKey getAssignmentId() {
+        return assignmentId;
+    }
+
+    public void setAssignmentId(AssignmentModelKey assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
     public Date getAssignmentDate() {

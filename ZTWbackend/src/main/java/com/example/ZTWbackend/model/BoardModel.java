@@ -14,15 +14,16 @@ public class BoardModel {
     private String boardTitle;
     @Column(name = "description")
     private String description;
-    @Column(name="img")
+    @Column(name = "img")
     private String img;
-    @OneToMany(mappedBy = "board",  cascade = CascadeType.ALL)
+    @ManyToOne
+    private UserModel owner;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<ColumnModel> boardColumnList = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<UserModel> userList = new ArrayList<>();
 
     public BoardModel() {
-
     }
 
     public String getImg() {
@@ -71,5 +72,13 @@ public class BoardModel {
 
     public void setUserList(List<UserModel> userList) {
         this.userList = userList;
+    }
+
+    public UserModel getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserModel owner) {
+        this.owner = owner;
     }
 }

@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,8 +28,10 @@ public class UserModel {
     private String preferredColor;
     @Column(name = "avatar")
     private String avatar;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<BoardModel> ownedBoards;
     @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<BoardModel> boardList;
+    private List<BoardModel> collaborationBoards;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<AssignmentModel> assignments;
 
@@ -86,12 +86,12 @@ public class UserModel {
         this.preferredColor = preferredColor;
     }
 
-    public List<BoardModel> getBoardList() {
-        return boardList;
+    public List<BoardModel> getCollaborationBoards() {
+        return collaborationBoards;
     }
 
-    public void setBoardList(List<BoardModel> boardList) {
-        this.boardList = boardList;
+    public void setCollaborationBoards(List<BoardModel> collaborationBoards) {
+        this.collaborationBoards = collaborationBoards;
     }
 
     public Set<AssignmentModel> getDateAssignment() {
@@ -116,5 +116,13 @@ public class UserModel {
 
     public void setAssignments(Set<AssignmentModel> assignments) {
         this.assignments = assignments;
+    }
+
+    public List<BoardModel> getOwnedBoards() {
+        return ownedBoards;
+    }
+
+    public void setOwnedBoards(List<BoardModel> ownedBoards) {
+        this.ownedBoards = ownedBoards;
     }
 }

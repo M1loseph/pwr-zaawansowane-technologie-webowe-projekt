@@ -19,8 +19,8 @@ public class CardModel {
     private long cardID;
     @Column(name = "card_title")
     private String cardTitle;
-    @Column(name = "data")
-    private String data;
+    @Column(name = "date")
+    private String date;
     @Column(name = "description")
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -40,7 +40,7 @@ public class CardModel {
         super();
         this.cardID = cardID;
         this.cardTitle = cardTitle;
-        this.data = data;
+        this.date = data;
         this.description = description;
         this.boardColumn = boardColumn;
         this.labelList = labeList;
@@ -62,12 +62,12 @@ public class CardModel {
         this.cardTitle = cardTitle;
     }
 
-    public String getData() {
-        return data;
+    public String getDate() {
+        return date;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDescription() {

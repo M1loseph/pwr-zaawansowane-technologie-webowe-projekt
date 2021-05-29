@@ -42,9 +42,8 @@ public class LabelController {
         LabelModel label = labelRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Label not found::" + boardId));
 
-        label.setLabelType(labelDetails.getLabelType());
         label.setColor(labelDetails.getColor());
-        label.setDescription(labelDetails.getDescription());
+        label.setTitle(labelDetails.getTitle());
 
         return ResponseEntity.ok(this.labelRepository.save(label));
     }

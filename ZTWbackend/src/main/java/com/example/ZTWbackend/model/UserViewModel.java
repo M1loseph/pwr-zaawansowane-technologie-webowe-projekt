@@ -16,7 +16,7 @@ public class UserViewModel {
     @NotNull
     private String password;
     @NotNull
-    @Pattern(regexp = "^#\\d{6}$")
+    @Pattern(regexp = "^#[\\da-fA-F]{6}$")
     private String preferredColor;
     private String avatar;
 
