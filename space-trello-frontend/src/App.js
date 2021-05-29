@@ -4,10 +4,15 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import SettingsPage from "./pages/SettingsPage";
 import TablesMenuPage from "./pages/TablesMenuPage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(null);
   return (
     <Router>
       <Switch>
@@ -28,6 +33,9 @@ function App() {
         </Route>
         <Route exact path="/settings">
           <SettingsPage />
+        </Route>
+        <Route>
+          <Redirect to="/" />
         </Route>
       </Switch>
     </Router>
