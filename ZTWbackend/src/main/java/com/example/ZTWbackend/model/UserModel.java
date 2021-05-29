@@ -2,6 +2,7 @@ package com.example.ZTWbackend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -29,10 +30,13 @@ public class UserModel {
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @JsonIdentityReference(alwaysAsId=true)
     private List<BoardModel> ownedBoards;
     @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId=true)
     private List<BoardModel> collaborationBoards;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityReference(alwaysAsId=true)
     private Set<AssignmentModel> assignments;
 
     public UserModel() {
@@ -92,14 +96,6 @@ public class UserModel {
 
     public void setCollaborationBoards(List<BoardModel> collaborationBoards) {
         this.collaborationBoards = collaborationBoards;
-    }
-
-    public Set<AssignmentModel> getDateAssignment() {
-        return assignments;
-    }
-
-    public void setDateAssignment(Set<AssignmentModel> dateAssignment) {
-        this.assignments = dateAssignment;
     }
 
     public String getAvatar() {

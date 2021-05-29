@@ -1,11 +1,15 @@
 package com.example.ZTWbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "boards")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "boardId")
 public class BoardModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

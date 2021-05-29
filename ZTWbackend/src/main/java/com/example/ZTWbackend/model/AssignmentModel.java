@@ -1,38 +1,37 @@
 package com.example.ZTWbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
-@Table(name = "assignments")
+@Table(name = "assignments", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "card_id"})})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "assignmentId")
 public class AssignmentModel implements Serializable {
 
-    @EmbeddedId
-    private AssignmentModelKey assignmentId;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long assignmentId;
     @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name="user_id", nullable=false)
     private UserModel user;
-
     @ManyToOne
-    @MapsId("cardId")
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name="card_id", nullable = false)
     private CardModel card;
-
     @Column(name = "assignment_date")
     private Date assignmentDate;
 
     AssignmentModel() {
     }
 
-    public AssignmentModelKey getAssignmentId() {
+    public long getAssignmentId() {
         return assignmentId;
     }
 
-    public void setAssignmentId(AssignmentModelKey assignmentId) {
+    public void setAssignmentId(long assignmentId) {
         this.assignmentId = assignmentId;
     }
 
@@ -58,18 +57,5 @@ public class AssignmentModel implements Serializable {
 
     public void setCard(CardModel card) {
         this.card = card;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AssignmentModel)) return false;
-        AssignmentModel that = (AssignmentModel) o;
-        return Objects.equals(user, that.user) && Objects.equals(card, that.card);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(user, card);
     }
 }
