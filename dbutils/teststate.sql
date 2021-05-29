@@ -73,16 +73,15 @@ VALUES
 	(5, 1);
 	
 -- ATTACH USERS TO CARDS
-INSERT INTO assignments(card_id, user_id, assignment_date)
+INSERT INTO assignments(assignment_id, card_id, user_id, assignment_date)
 VALUES
-	(1, 1, '2003-04-12 04:05:06'),
-	(2, 1, '2003-04-12 05:05:06'),
-	(3, 1, '2003-04-12 07:05:06'),
-	(3, 2, '2003-04-12 09:05:06');
+	(1, 1, 1, '2003-04-12 04:05:06'),
+	(2, 2, 1, '2003-04-12 05:05:06'),
+	(3, 3, 1, '2003-04-12 07:05:06'),
+	(4, 3, 2, '2003-04-12 09:05:06');
 	
 -- ATTACH USET TO BOARD
 INSERT INTO boards_user_list(user_list_user_id, collaboration_boards_board_id)
 VALUES
 	(1, 2),
 	(2, 1);
-	
