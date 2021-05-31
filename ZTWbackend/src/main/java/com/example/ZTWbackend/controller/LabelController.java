@@ -13,29 +13,29 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/label")
 public class LabelController {
     @Autowired
     private LabelRepository labelRepository;
 
-    @GetMapping("label")
+    @GetMapping("/")
     public List<LabelModel> getLabels(){
         return this.labelRepository.findAll();
     }
 
-    @GetMapping("/label/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<LabelModel> getLabelId(@PathVariable(value = "id") Long labelId) throws ResourceNotFoundException {
         LabelModel label = labelRepository.findById(labelId)
                 .orElseThrow(() -> new ResourceNotFoundException("Label not found::"+labelId ));
         return ResponseEntity.ok().body(label);
     }
 
-    @PostMapping("label")
+    @PostMapping("/")
     public LabelModel createLabel(@RequestBody LabelModel label){
         return this.labelRepository.save(label);
     }
 
-    @PutMapping("label/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<LabelModel> updateLabel(@PathVariable(value = "id") Long boardId,
                                                   @Valid @RequestBody LabelModel labelDetails) throws ResourceNotFoundException {
 
@@ -48,7 +48,7 @@ public class LabelController {
         return ResponseEntity.ok(this.labelRepository.save(label));
     }
 
-    @DeleteMapping("label/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteLabel(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
 
         LabelModel label = labelRepository.findById(userId)

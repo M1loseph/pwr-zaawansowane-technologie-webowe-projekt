@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/board")
 public class BoardController {
 
     @Autowired
@@ -27,18 +27,18 @@ public class BoardController {
     @Autowired
     private IBoardBackgroundResolver bgResolver;
 
-    @GetMapping("boards")
+    @GetMapping("/")
     public List<BoardModel> getBoards() {
         return this.boardRepository.findAll();
     }
 
-    @GetMapping("/boards/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BoardModel> getBoardsByID(@PathVariable(value = "id") Long boardId) throws ResourceNotFoundException {
         BoardModel board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("Board not found::" + boardId));
         return ResponseEntity.ok().body(board);
     }
 
-    @PostMapping("boards")
+    @PostMapping("/")
     public BoardModel createUser(@RequestBody BoardViewModel board) throws InvalidImageException, NoSuchBoardBgException {
         BoardModel insertBoard = new BoardModel();
         insertBoard.setImg(bgResolver.resolve(board.getImg()));
@@ -47,7 +47,7 @@ public class BoardController {
         return this.boardRepository.save(insertBoard);
     }
 
-    @PostMapping("boards/addBoardColumn/{id}")
+    @PostMapping("/addBoardColumn/{id}")
     public BoardModel addBoarderColumn(@PathVariable(value = "id") Long boardId, @RequestBody ColumnModel boardColumn) throws ResourceNotFoundException {
         BoardModel board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("Board not found::" + boardId));
         board.getBoardColumnList().add(boardColumn);
@@ -55,7 +55,7 @@ public class BoardController {
         return this.boardRepository.save(board);
     }
 
-    @DeleteMapping("boards/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteBoard(@PathVariable(value = "id") Long boardId) throws ResourceNotFoundException {
         BoardModel board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("Board not found::" + boardId));
         this.boardRepository.delete(board);

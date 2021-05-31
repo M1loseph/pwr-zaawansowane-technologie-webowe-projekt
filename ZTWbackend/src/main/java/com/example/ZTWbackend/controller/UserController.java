@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -26,18 +26,18 @@ public class UserController {
     @Autowired
     private IFileProcessor fileProcessor;
 
-    @GetMapping("users")
+    @GetMapping("/")
     public List<UserModel> getUsers() {
         return this.userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
         UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Employee not found::" + userId));
         return ResponseEntity.ok().body(user);
     }
 
-    @PostMapping("users")
+    @PostMapping("/")
     public UserModel createUser(@RequestBody UserViewModel user) throws InvalidImageException {
         UserModel insertUser = new UserModel();
         insertUser.setFirstName(user.getFirstName());
@@ -50,7 +50,7 @@ public class UserController {
     }
 
 
-    @PostMapping("users/addBoard/{id}")
+    @PostMapping("/addBoard/{id}")
     public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
         UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
         user.getCollaborationBoards().add(board);
@@ -58,7 +58,7 @@ public class UserController {
         return this.userRepository.save(user);
     }
 
-    @PutMapping("users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody UserViewModel userDetails) throws ResourceNotFoundException, InvalidImageException {
         UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
         user.setFirstName(userDetails.getFirstName());
@@ -72,7 +72,7 @@ public class UserController {
         return ResponseEntity.ok(this.userRepository.save(user));
     }
 
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
         UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
         fileProcessor.delete(userRepository.IMAGE_FOLDER, user.getAvatar());

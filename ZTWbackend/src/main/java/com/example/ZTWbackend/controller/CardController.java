@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/card")
 public class CardController {
     @Autowired
     private CardRepository cardRepository;
 
-    @GetMapping("card")
+    @GetMapping("/")
     public List<CardModel> getCard(){
         return this.cardRepository.findAll();
     }
 
-    @GetMapping("/card/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CardModel> getCardId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
         CardModel card = cardRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Card not found::"+userId ));
         return ResponseEntity.ok().body(card);
     }
-    @PostMapping("card")
+    @PostMapping("/")
     public CardModel createCard(@RequestBody CardModel card){
         return this.cardRepository.save(card);
     }
 
-    @PutMapping("card/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CardModel> updateCard(@PathVariable(value = "id") Long boardId,
                                                 @Valid @RequestBody CardModel cardDetails) throws ResourceNotFoundException {
 
@@ -48,7 +48,7 @@ public class CardController {
         return ResponseEntity.ok(this.cardRepository.save(card));
     }
 
-    @PostMapping("card/addLabel/{id}")
+    @PostMapping("/addLabel/{id}")
     public CardModel addLabel(@PathVariable(value = "id") Long cardID, @RequestBody LabelModel label) throws ResourceNotFoundException{
 
         CardModel card = cardRepository.findById(cardID)
@@ -60,7 +60,7 @@ public class CardController {
         return this.cardRepository.save(card);
     }
 
-    @DeleteMapping("card/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteCard(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
 
         CardModel card = cardRepository.findById(userId)

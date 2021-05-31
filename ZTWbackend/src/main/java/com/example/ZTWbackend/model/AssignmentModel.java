@@ -1,6 +1,8 @@
 package com.example.ZTWbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -17,14 +19,17 @@ public class AssignmentModel implements Serializable {
     private long assignmentId;
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
+    @JsonIdentityReference(alwaysAsId=true)
     private UserModel user;
     @ManyToOne
     @JoinColumn(name="card_id", nullable = false)
+    @JsonIdentityReference(alwaysAsId=true)
     private CardModel card;
     @Column(name = "assignment_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'")
     private Date assignmentDate;
 
-    AssignmentModel() {
+    public AssignmentModel() {
     }
 
     public long getAssignmentId() {

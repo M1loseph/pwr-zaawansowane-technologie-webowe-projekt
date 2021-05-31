@@ -14,34 +14,32 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/column")
 public class BoardColumnController {
 
     @Autowired
     private BoardColumnRepository boardColumnRepository;
 
-    @GetMapping("boardcolumn")
-    public List<ColumnModel> getBoardColumn(){
+    @GetMapping("/")
+    public List<ColumnModel> getBoardColumn() {
         return this.boardColumnRepository.findAll();
     }
 
-    @GetMapping("/boardcolumn/{id}")
-    public ResponseEntity<ColumnModel> getBorderColumnId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
-        ColumnModel boardColumn = boardColumnRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::"+userId ));
+    @GetMapping("/{id}")
+    public ResponseEntity<ColumnModel> getBoardColumnId(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+        ColumnModel boardColumn = boardColumnRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("BoardColumn not found::" + userId));
         return ResponseEntity.ok().body(boardColumn);
     }
 
-    @PostMapping("boardcolumn")
-    public ColumnModel createBorderColumn(@RequestBody ColumnModel boardColumn){
+    @PostMapping("/")
+    public ColumnModel createBoardColumn(@RequestBody ColumnModel boardColumn) {
         return this.boardColumnRepository.save(boardColumn);
     }
 
-    @PostMapping("boardcolumn/addCard/{id}")
-    public ColumnModel addBorderColumn(@PathVariable(value = "id") Long boardColumnID, @RequestBody CardModel card) throws ResourceNotFoundException{
+    @PostMapping("/addCard/{id}")
+    public ColumnModel addBoardColumn(@PathVariable(value = "id") Long boardColumnID, @RequestBody CardModel card) throws ResourceNotFoundException {
 
-        ColumnModel boardColumn = boardColumnRepository.findById(boardColumnID)
-                .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardColumnID));
+        ColumnModel boardColumn = boardColumnRepository.findById(boardColumnID).orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardColumnID));
 
         boardColumn.getCardList().add(card);
         card.setBoardColumn(boardColumn);
@@ -49,11 +47,10 @@ public class BoardColumnController {
         return this.boardColumnRepository.save(boardColumn);
     }
 
-    @DeleteMapping("boardcolumn/{id}")
-    public Map<String, Boolean> deleteBoardColumn(@PathVariable(value = "id") Long boardcolumnId) throws ResourceNotFoundException{
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> deleteBoardColumn(@PathVariable(value = "id") Long boardcolumnId) throws ResourceNotFoundException {
 
-        ColumnModel boardColumn = boardColumnRepository.findById(boardcolumnId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardcolumnId));
+        ColumnModel boardColumn = boardColumnRepository.findById(boardcolumnId).orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardcolumnId));
 
         this.boardColumnRepository.delete(boardColumn);
         Map<String, Boolean> response = new HashMap<>();
@@ -61,12 +58,10 @@ public class BoardColumnController {
         return response;
     }
 
-    @PutMapping("boardcolumn/{id}")
-    public ResponseEntity<ColumnModel> updateBoardColumn(@PathVariable(value = "id") Long boardId,
-                                                         @Valid @RequestBody ColumnModel boardColumnDetails) throws ResourceNotFoundException {
+    @PutMapping("/{id}")
+    public ResponseEntity<ColumnModel> updateBoardColumn(@PathVariable(value = "id") Long boardId, @Valid @RequestBody ColumnModel boardColumnDetails) throws ResourceNotFoundException {
 
-        ColumnModel boardColumn = boardColumnRepository.findById(boardId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardId));
+        ColumnModel boardColumn = boardColumnRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardId));
 
         boardColumn.setBoardColumnTitle(boardColumnDetails.getBoardColumnTitle());
         boardColumn.setDescription(boardColumnDetails.getDescription());

@@ -2,11 +2,13 @@ package com.example.ZTWbackend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +22,8 @@ public class CardModel {
     @Column(name = "card_title")
     private String cardTitle;
     @Column(name = "date")
-    private String date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'")
+    private Date date;
     @Column(name = "description")
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -34,16 +37,6 @@ public class CardModel {
 
     public CardModel() {
         super();
-    }
-
-    public CardModel(long cardID, String cardTitle, String data, String description, ColumnModel boardColumn, List<LabelModel> labeList) {
-        super();
-        this.cardID = cardID;
-        this.cardTitle = cardTitle;
-        this.date = data;
-        this.description = description;
-        this.boardColumn = boardColumn;
-        this.labelList = labeList;
     }
 
     public long getCardID() {
@@ -62,11 +55,11 @@ public class CardModel {
         this.cardTitle = cardTitle;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
