@@ -12,7 +12,6 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
     <Modal
       show={showModal}
       onHide={() => setShowModal(false)}
-      backdrop="static"
       keyboard={true}
       animation={false}
       size={"lg"}
@@ -62,6 +61,9 @@ const CardOptionsModal = ({ showModal, setShowModal, card }) => {
               className="ml-2 trello-clickable"
               src="/assets/addUserToTaskButton.svg"
             />
+          </Row>
+          <Row>
+
           </Row>
         </Container>
       </Modal.Body>

@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserID(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
-        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Employee not found::" + userId));
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
         return ResponseEntity.ok().body(user);
     }
 
@@ -50,13 +50,13 @@ public class UserController {
     }
 
 
-    @PostMapping("/addBoard/{id}")
-    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
-        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
-        user.getCollaborationBoards().add(board);
-        board.getUserList().add(user);
-        return this.userRepository.save(user);
-    }
+//    @PostMapping("/addBoard/{id}")
+//    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
+//        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
+//        user.getCollaborationBoards().add(board);
+//        board.getInvitedUsers().add(user);
+//        return this.userRepository.save(user);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody UserViewModel userDetails) throws ResourceNotFoundException, InvalidImageException {

@@ -41,7 +41,7 @@ public class BoardColumnController {
 
         ColumnModel boardColumn = boardColumnRepository.findById(boardColumnID).orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardColumnID));
 
-        boardColumn.getCardList().add(card);
+        boardColumn.getCards().add(card);
         card.setBoardColumn(boardColumn);
 
         return this.boardColumnRepository.save(boardColumn);
@@ -63,7 +63,7 @@ public class BoardColumnController {
 
         ColumnModel boardColumn = boardColumnRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoarderColumn not found::" + boardId));
 
-        boardColumn.setBoardColumnTitle(boardColumnDetails.getBoardColumnTitle());
+        boardColumn.setTitle(boardColumnDetails.getTitle());
         boardColumn.setDescription(boardColumnDetails.getDescription());
 
         return ResponseEntity.ok(this.boardColumnRepository.save(boardColumn));

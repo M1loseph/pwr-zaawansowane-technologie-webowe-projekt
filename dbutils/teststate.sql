@@ -1,6 +1,6 @@
 -- CLEANUP
 DELETE FROM assignments CASCADE;
-DELETE FROM boards_user_list CASCADE;
+DELETE FROM boards_invited_users CASCADE;
 DELETE FROM cards_label_list CASCADE;
 DELETE FROM labels CASCADE;
 DELETE FROM cards CASCADE;
@@ -22,7 +22,7 @@ VALUES
 	
 	
 -- COLUMNS
-INSERT INTO board_columns(board_columnid, board_column_title, description, owner_board_id)
+INSERT INTO board_columns(column_id, column_title, column_description, owner_board_id)
 VALUES
 	(1, 'First Column', 'First column description', 1),
 	(2, 'Second Column', 'Second column description', 1),
@@ -81,7 +81,7 @@ VALUES
 	(4, 3, 2, '2003-04-12 09:05:06');
 	
 -- ATTACH USET TO BOARD
-INSERT INTO boards_user_list(user_list_user_id, collaboration_boards_board_id)
+INSERT INTO boards_invited_users(invited_users_user_id, collaboration_boards_board_id)
 VALUES
 	(1, 2),
 	(2, 1);

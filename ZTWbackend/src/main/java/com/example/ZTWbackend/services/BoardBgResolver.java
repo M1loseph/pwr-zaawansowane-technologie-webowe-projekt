@@ -24,4 +24,9 @@ public class BoardBgResolver implements IBoardBackgroundResolver {
             return paths.get(id);
         else throw new NoSuchBoardBgException("Invalid bg key for board object");
     }
+
+    @Override
+    public Map<Integer, String> getAvailableBackgrounds() {
+        return paths;
+    }
 }

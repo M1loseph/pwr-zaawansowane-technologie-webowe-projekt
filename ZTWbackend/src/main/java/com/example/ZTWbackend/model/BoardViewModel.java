@@ -1,9 +1,16 @@
 package com.example.ZTWbackend.model;
 
+import javax.validation.constraints.NotNull;
+
 public class BoardViewModel {
+    @NotNull
     private String boardTitle;
+    @NotNull
     private String description;
+    @NotNull
     private Integer img;
+    @NotNull
+    private Long owner;
 
     BoardViewModel() {
     }
@@ -30,5 +37,13 @@ public class BoardViewModel {
 
     public void setImg(Integer img) {
         this.img = img;
+    }
+
+    public Long getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Long owner) {
+        this.owner = owner;
     }
 }

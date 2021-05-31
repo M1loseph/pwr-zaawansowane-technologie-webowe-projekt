@@ -1,11 +1,11 @@
 package com.example.ZTWbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "boards")
@@ -21,11 +21,14 @@ public class BoardModel {
     @Column(name = "img")
     private String img;
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     private UserModel owner;
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<ColumnModel> boardColumnList = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<UserModel> userList = new ArrayList<>();
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ColumnModel> columns;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<UserModel> invitedUsers;
 
     public BoardModel() {
     }
@@ -62,20 +65,20 @@ public class BoardModel {
         this.description = description;
     }
 
-    public List<ColumnModel> getBoardColumnList() {
-        return boardColumnList;
+    public Set<ColumnModel> getColumns() {
+        return columns;
     }
 
-    public void setBoardColumnList(List<ColumnModel> boardColumnList) {
-        this.boardColumnList = boardColumnList;
+    public void setColumns(Set<ColumnModel> columns) {
+        this.columns = columns;
     }
 
-    public List<UserModel> getUserList() {
-        return userList;
+    public Set<UserModel> getInvitedUsers() {
+        return invitedUsers;
     }
 
-    public void setUserList(List<UserModel> userList) {
-        this.userList = userList;
+    public void setInvitedUsers(Set<UserModel> invitedUsers) {
+        this.invitedUsers = invitedUsers;
     }
 
     public UserModel getOwner() {

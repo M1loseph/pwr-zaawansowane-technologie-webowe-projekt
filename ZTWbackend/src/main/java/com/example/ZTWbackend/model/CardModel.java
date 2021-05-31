@@ -30,9 +30,9 @@ public class CardModel {
     @JoinColumn(name = "owner_board_column_id")
     @JsonBackReference
     private ColumnModel boardColumn;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<LabelModel> labelList = new ArrayList<>();
-    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LabelModel> labelList;
+    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<AssignmentModel> assignments;
 
     public CardModel() {

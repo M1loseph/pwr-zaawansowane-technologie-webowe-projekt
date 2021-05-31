@@ -8,56 +8,57 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "board_columns")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "boardColumnID")
+        property = "columnId")
 public class ColumnModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long boardColumnID;
-    @Column(name = "board_column_title")
-    private String boardColumnTitle;
-    @Column(name = "description")
+    private long columnId;
+    @Column(name = "column_title")
+    private String title;
+    @Column(name = "column_description")
     private String description;
     @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_board_id")
     @JsonBackReference
     private BoardModel board;
     @Column(name = "card")
-    @OneToMany(mappedBy = "boardColumn",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boardColumn", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<CardModel> cardList = new ArrayList<>();
+    private Set<CardModel> cards;
 
     public ColumnModel() {
     }
 
-    public ColumnModel(long boardColumnID, String boardColumnTitle, String description, BoardModel board, List<CardModel> card) {
+    public ColumnModel(long boardColumnID, String boardColumnTitle, String description, BoardModel board, Set<CardModel> card) {
         super();
-        this.boardColumnID = boardColumnID;
-        this.boardColumnTitle = boardColumnTitle;
+        this.columnId = boardColumnID;
+        this.title = boardColumnTitle;
         this.description = description;
         this.board = board;
-        this.cardList = card;
+        this.cards = card;
     }
 
-    public long getBoardColumnID() {
-        return boardColumnID;
+    public long getColumnId() {
+        return columnId;
     }
 
-    public void setBoardColumnID(long boardColumnID) {
-        this.boardColumnID = boardColumnID;
+    public void setColumnId(long columnId) {
+        this.columnId = columnId;
     }
 
-    public String getBoardColumnTitle() {
-        return boardColumnTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBoardColumnTitle(String boardColumnTitle) {
-        this.boardColumnTitle = boardColumnTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -76,11 +77,11 @@ public class ColumnModel {
         this.board = board;
     }
 
-    public List<CardModel> getCardList() {
-        return cardList;
+    public Set<CardModel> getCards() {
+        return cards;
     }
 
-    public void setCardList(List<CardModel> cardList) {
-        this.cardList = cardList;
+    public void setCards(Set<CardModel> cards) {
+        this.cards = cards;
     }
 }

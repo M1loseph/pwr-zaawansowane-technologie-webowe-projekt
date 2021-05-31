@@ -1,12 +1,13 @@
 package com.example.ZTWbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "labels")
@@ -21,7 +22,8 @@ public class LabelModel {
     @Pattern(regexp = "^#[\\da-fA-F]{6}$")
     private String color;
     @ManyToMany(mappedBy = "labelList")
-    private List<CardModel> cardList = new ArrayList<>();
+    @JsonBackReference()
+    private Set<CardModel> cardList;
 
     public LabelModel() {
     }
@@ -50,11 +52,11 @@ public class LabelModel {
         this.color = color;
     }
 
-    public List<CardModel> getCardList() {
+    public Set<CardModel> getCardList() {
         return cardList;
     }
 
-    public void setCardList(List<CardModel> cardList) {
+    public void setCardList(Set<CardModel> cardList) {
         this.cardList = cardList;
     }
 }

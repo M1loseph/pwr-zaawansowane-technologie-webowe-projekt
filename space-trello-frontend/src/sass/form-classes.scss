@@ -107,6 +107,28 @@
   height: 50px;
 }
 
-.trello-btn-calcel {
+.trello-btn-cancel {
   background-color: red;
+  &:hover {
+    background-color: darken(red, 20);
+    color: $font-primary;
+  }
+}
+
+.trello-table-bg-container {
+  width: 47%;
+}
+
+.trello-selected-image {
+  @extend .trello-clickable;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.trello-selected-image-selected {
+  @extend .trello-selected-image;
+  background-color: whitesmoke;
 }

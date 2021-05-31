@@ -31,10 +31,10 @@ public class UserModel {
     private String avatar;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     @JsonIdentityReference(alwaysAsId=true)
-    private List<BoardModel> ownedBoards;
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<BoardModel> ownedBoards;
+    @ManyToMany(mappedBy = "invitedUsers", fetch = FetchType.EAGER)
     @JsonIdentityReference(alwaysAsId=true)
-    private List<BoardModel> collaborationBoards;
+    private Set<BoardModel> collaborationBoards;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIdentityReference(alwaysAsId=true)
     private Set<AssignmentModel> assignments;
@@ -90,11 +90,11 @@ public class UserModel {
         this.preferredColor = preferredColor;
     }
 
-    public List<BoardModel> getCollaborationBoards() {
+    public Set<BoardModel> getCollaborationBoards() {
         return collaborationBoards;
     }
 
-    public void setCollaborationBoards(List<BoardModel> collaborationBoards) {
+    public void setCollaborationBoards(Set<BoardModel> collaborationBoards) {
         this.collaborationBoards = collaborationBoards;
     }
 
@@ -114,11 +114,11 @@ public class UserModel {
         this.assignments = assignments;
     }
 
-    public List<BoardModel> getOwnedBoards() {
+    public Set<BoardModel> getOwnedBoards() {
         return ownedBoards;
     }
 
-    public void setOwnedBoards(List<BoardModel> ownedBoards) {
+    public void setOwnedBoards(Set<BoardModel> ownedBoards) {
         this.ownedBoards = ownedBoards;
     }
 }
