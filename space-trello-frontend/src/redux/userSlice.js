@@ -14,6 +14,10 @@ export const tokenSlice = createSlice({
   },
 });
 
+export const getUser = (state) => {
+  return state.users.find((u) => u.userId === state.user.userId);
+};
+
 export const { setUser, deleteUserTable } = tokenSlice.actions;
 
 export default tokenSlice.reducer;

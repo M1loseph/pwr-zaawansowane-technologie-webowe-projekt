@@ -4,6 +4,7 @@ import com.example.ZTWbackend.exceptions.InvalidImageException;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Base64;
 import java.util.UUID;
@@ -29,6 +30,11 @@ public class FileProcessor implements IFileProcessor {
 
     @Override
     public void delete(String folder, String fileName) {
-
+        try {
+            Path filePath = Path.of(publicFolder, folder, fileName);
+            FileUtils.delete(filePath.toFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

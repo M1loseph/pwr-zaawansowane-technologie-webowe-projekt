@@ -108,11 +108,36 @@
 }
 
 .trello-btn-cancel {
+  background-color: $bg-quaternary;
+  &:hover {
+    background-color: darken($bg-quaternary, 20);
+    color: $font-primary;
+  }
+}
+
+.trello-btn-danger {
   background-color: red;
   &:hover {
     background-color: darken(red, 20);
     color: $font-primary;
   }
+}
+
+@keyframes trello-btn-danger-loading-animation {
+  from {
+    background-position: right;
+  }
+  to {
+    background-position: left;
+  }
+}
+
+.trello-btn-danger-loading {
+  @extend .trello-btn-danger;
+  background: linear-gradient(to right, red 50%, darken(red, 20) 50%);
+  background-size: 200% 100%;
+  animation-name: trello-btn-danger-loading-animation;
+  animation-duration: 2s;
 }
 
 .trello-table-bg-container {
@@ -131,4 +156,13 @@
 .trello-selected-image-selected {
   @extend .trello-selected-image;
   background-color: whitesmoke;
+}
+
+.modal-content {
+  background-color: transparent;
+}
+
+.modal-body {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }

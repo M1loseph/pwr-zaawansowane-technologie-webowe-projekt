@@ -1,5 +1,5 @@
 import { removeTable, addTable } from "./tablesSlice";
-import { deleteUserTable, addUserTable } from "./usersSlice";
+import { deleteUserTable, addUserTable, updateUser } from "./usersSlice";
 
 export const deleteTableAPI = (id) => {
   return async (dispatch, getState) => {
@@ -34,6 +34,37 @@ export const createTableAPI = ({ title, description, background }) => {
       const table = await response.json();
       dispatch(addTable(table));
       dispatch(addUserTable({ tableId: table.boardId, userId: user.userId }));
+    }
+  };
+};
+
+export const updateUserAPI = ({
+  firstName,
+  lastName,
+  email,
+  password,
+  preferredColor,
+  avatar,
+}) => {
+  return async (dispatch, getState) => {
+    const { user } = getState();
+    const response = await fetch(`/api/user/${user.userId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password,
+        preferredColor,
+        avatar,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const updatedUser = await response.json();
+      dispatch(updateUser(updatedUser));
     }
   };
 };

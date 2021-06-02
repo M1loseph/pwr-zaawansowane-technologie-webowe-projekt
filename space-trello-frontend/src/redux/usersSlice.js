@@ -23,12 +23,18 @@ export const usersSlice = createSlice({
       state.push(action.payload);
     },
     removeUser(state, action) {},
-    updateUser(state, action) {},
+    updateUser(state, action) {
+      const { userId } = action.payload;
+      const i = state.findIndex((u) => u.userId === userId);
+      if (i !== -1) {
+        state[i] = action.payload;
+      }
+    },
     deleteUserTable(state, action) {
       const { userId, tableId } = action.payload;
       const user = state.find((u) => u.userId === userId);
       user.ownedBoards = user.ownedBoards.filter((t) => {
-        return t!== tableId;
+        return t !== tableId;
       });
     },
     addUserTable(state, action) {

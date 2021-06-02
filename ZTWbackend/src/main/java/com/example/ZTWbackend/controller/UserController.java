@@ -2,7 +2,6 @@ package com.example.ZTWbackend.controller;
 
 import com.example.ZTWbackend.exceptions.InvalidImageException;
 import com.example.ZTWbackend.exceptions.ResourceNotFoundException;
-import com.example.ZTWbackend.model.BoardModel;
 import com.example.ZTWbackend.model.UserModel;
 import com.example.ZTWbackend.model.UserViewModel;
 import com.example.ZTWbackend.repository.UserRepository;
@@ -50,13 +49,13 @@ public class UserController {
     }
 
 
-//    @PostMapping("/addBoard/{id}")
-//    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
-//        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
-//        user.getCollaborationBoards().add(board);
-//        board.getInvitedUsers().add(user);
-//        return this.userRepository.save(user);
-//    }
+    //    @PostMapping("/addBoard/{id}")
+    //    public UserModel addBoard(@PathVariable(value = "id") Long userId, @RequestBody BoardModel board) throws ResourceNotFoundException {
+    //        UserModel user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found::" + userId));
+    //        user.getCollaborationBoards().add(board);
+    //        board.getInvitedUsers().add(user);
+    //        return this.userRepository.save(user);
+    //    }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody UserViewModel userDetails) throws ResourceNotFoundException, InvalidImageException {
@@ -66,9 +65,11 @@ public class UserController {
         user.setEmail(userDetails.getEmail());
         user.setPassword(userDetails.getPassword());
         user.setPreferredColor(userDetails.getPreferredColor());
-        String newAvatar = fileProcessor.save(userRepository.IMAGE_FOLDER, userDetails.getAvatar());
-        fileProcessor.delete(userRepository.IMAGE_FOLDER, user.getAvatar());
-        user.setAvatar(newAvatar);
+        if (userDetails.getAvatar() != null) {
+            String newAvatar = fileProcessor.save(userRepository.IMAGE_FOLDER, userDetails.getAvatar());
+            fileProcessor.delete(userRepository.IMAGE_FOLDER, user.getAvatar());
+            user.setAvatar(newAvatar);
+        }
         return ResponseEntity.ok(this.userRepository.save(user));
     }
 

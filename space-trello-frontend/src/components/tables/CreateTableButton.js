@@ -7,6 +7,7 @@ import FormHeader from "../common/FormHeader";
 import FlexRow from "../helper/FlexRow";
 import Selectable from "./Selectable";
 import { createTableAPI } from "../../redux/api";
+import { toBackgroundSrc } from "../../utils/imageUtils";
 
 const CreateTableButton = () => {
   const defaultFormData = { title: "", description: "", background: 1 };
@@ -91,7 +92,7 @@ const CreateTableButton = () => {
                 >
                   <Image
                     className="img-fluid rounded"
-                    src={`/upload-images/board/${availableImages[k]}`}
+                    src={toBackgroundSrc(availableImages[k])}
                   />
                 </Selectable>
               ))}

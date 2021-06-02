@@ -10,27 +10,32 @@ import SettingsFromInput from "./SettingsFormInput";
 import SettingsModal from "./SettingsModal";
 import SettingsModalColor from "./SettingsModalColor";
 import SettingsModalFile from "./SettingsModalFile";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../redux/userSlice";
+import { toAvatarSrc } from "../../utils/imageUtils";
+import { updateUserAPI } from "../../redux/api";
 
-const SettingsView = ({ user }) => {
-  const [formData, setFormData] = useState({
-    name: "Jan",
-    lastName: "Kowalski",
-    email: "jan.kowalski@gmail.com",
-    url: "https://thispersondoesnotexist.com/image",
-    color: "#F58162",
-  });
-
+const SettingsView = () => {
+  const user = useSelector((state) => getUser(state));
+  const dispatch = useDispatch();
   const [editName, setEditName] = useState(false);
   const [editLastName, setEditLastName] = useState(false);
   const [editColor, setEditColor] = useState(false);
   const [editPicture, setEditPicture] = useState(false);
+  const assign = (prop) => {
+    return Object.assign({}, user, { avatar: null }, prop);
+  };
+  const send = (prop) => {
+    dispatch(updateUserAPI(assign(prop)));
+  };
 
+  const { firstName, lastName, email, avatar, preferredColor } = user;
   return (
     <React.Fragment>
       <FormBase sm={12} md={10} lg={8} xl={7}>
         <FlexRow>
           <Image
-            src={formData.url}
+            src={toAvatarSrc(avatar)}
             onClick={() => setEditPicture(true)}
             className="rounded-circle trello-settings-icon trello-clickable"
           />
@@ -38,7 +43,7 @@ const SettingsView = ({ user }) => {
             <SettingsFormLabel>Preferowany kolor</SettingsFormLabel>
             <div
               className="rounded-circle trello-settings-color-container mt-2"
-              style={{ backgroundColor: formData.color }}
+              style={{ backgroundColor: preferredColor }}
               onClick={() => setEditColor(true)}
             ></div>
           </div>
@@ -46,23 +51,21 @@ const SettingsView = ({ user }) => {
         <SettingsFormGroup>
           <SettingsFormLabel>IMIĘ</SettingsFormLabel>
           <FlexRow>
-            <SettingsFormInput>{formData.name}</SettingsFormInput>
+            <SettingsFormInput>{firstName}</SettingsFormInput>
             <SettingsFormEditButton setEdit={setEditName} />
           </FlexRow>
         </SettingsFormGroup>
         <SettingsFormGroup>
           <SettingsFormLabel>NAZWISKO</SettingsFormLabel>
           <FlexRow>
-            <SettingsFromInput>{formData.lastName}</SettingsFromInput>
+            <SettingsFromInput>{lastName}</SettingsFromInput>
             <SettingsFormEditButton setEdit={setEditLastName} />
           </FlexRow>
         </SettingsFormGroup>
         <SettingsFormGroup>
           <SettingsFormLabel>EMAIL</SettingsFormLabel>
           <FlexRow>
-            <SettingsFormInput className="mt-2">
-              {formData.email}
-            </SettingsFormInput>
+            <SettingsFormInput className="mt-2">{email}</SettingsFormInput>
           </FlexRow>
         </SettingsFormGroup>
         <div className="mt-4">
@@ -73,7 +76,7 @@ const SettingsView = ({ user }) => {
         title={"Edytuj imię"}
         label={"IMIĘ"}
         onConfirm={(value) => {
-          console.log(value);
+          send({ firstName: value });
           setEditName(false);
         }}
         onCancel={() => {
@@ -81,40 +84,37 @@ const SettingsView = ({ user }) => {
         }}
         show={editName}
         type={"text"}
-        initialField={formData.name}
+        initialField={firstName}
       />
       <SettingsModal
         title={"Edytuj nazwisko"}
         label={"NAZWISKO"}
         onConfirm={(value) => {
-          console.log(value);
+          send({ lastName: value });
           setEditLastName(false);
         }}
         onCancel={() => setEditLastName(false)}
         show={editLastName}
         type={"text"}
-        initialField={formData.lastName}
+        initialField={lastName}
       />
       <SettingsModalColor
         show={editColor}
         onCancel={() => setEditColor(false)}
         onConfirm={(value) => {
-          console.log(value);
+          send({ preferredColor: value });
           setEditColor(false);
         }}
-        initialField={formData.color}
+        initialField={preferredColor}
       />
       <SettingsModalFile
         show={editPicture}
         onCancel={() => setEditPicture(false)}
-        onConfirm={async (value) => {
+        onConfirm={(value) => {
+          send({ avatar: value });
           setEditPicture(false);
-        //   const res = await fetch("http://localhost", {
-        //     method: "POST",
-        //     body: JSON.stringify({ data: value }),
-        //   });
         }}
-        initialField={formData.url}
+        initialField={toAvatarSrc(avatar)}
       />
     </React.Fragment>
   );

@@ -7,14 +7,10 @@ import FlexRow from "../helper/FlexRow";
 
 const SettingsModalFile = ({ onConfirm, onCancel, show, initialField }) => {
   const [file, setFile] = useState(null);
-  useEffect(() => {
-    setFile(initialField);
-  }, []);
   const createLocalResource = (e) => {
     const [file] = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
-      console.log(reader.result);
       setFile(reader.result);
     };
     reader.readAsDataURL(file);
