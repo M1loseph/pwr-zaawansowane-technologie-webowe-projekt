@@ -22,7 +22,6 @@ const SettingsModal = ({
     <Modal
       show={show}
       onHide={onCancel}
-      backdrop="static"
       keyboard={true}
       animation={false}
       size={"md"}

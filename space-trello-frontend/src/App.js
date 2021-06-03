@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/register">
           <RegisterPage />
         </Route>
-        <Route exact path="/table">
+        <Route exact path="/table/:tableId">
           <TablePage />
         </Route>
         <Route exact path="/tables">

@@ -1,5 +1,31 @@
-import { removeTable, addTable } from "./tablesSlice";
-import { deleteUserTable, addUserTable, updateUser } from "./usersSlice";
+import { READY } from "./APIStates";
+import {
+  removeTable,
+  addTable,
+  addTableAPIContainer,
+  fetchingTableFailed,
+} from "./tablesSlice";
+import {
+  deleteUserTable,
+  addUserTable,
+  updateUser,
+  addUserAPIContainer,
+  addUser,
+  fetchingUserFailed,
+} from "./usersSlice";
+
+export const fetchTableAPI = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(addTableAPIContainer(id));
+    const response = await fetch(`/api/board/${id}`);
+    if (response.ok) {
+      const table = await response.json();
+      dispatch(addTable(table));
+    } else {
+      dispatch(fetchingTableFailed(id));
+    }
+  };
+};
 
 export const deleteTableAPI = (id) => {
   return async (dispatch, getState) => {
@@ -48,23 +74,52 @@ export const updateUserAPI = ({
 }) => {
   return async (dispatch, getState) => {
     const { user } = getState();
-    const response = await fetch(`/api/user/${user.userId}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        password,
-        preferredColor,
-        avatar,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      const updatedUser = await response.json();
-      dispatch(updateUser(updatedUser));
+    if (user.status === READY) {
+      const { userId } = user.entity;
+      const response = await fetch(`/api/user/${userId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          preferredColor,
+          avatar,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const updatedUser = await response.json();
+        dispatch(updateUser(updatedUser));
+      }
+    }
+  };
+};
+
+export const fetchUserAPI = (id) => {
+  return async (dispatch, getState) => {
+    const { users } = getState();
+    // make sure that this this id does not exist
+    if (!users.find((u) => u.id === id)) {
+      dispatch(addUserAPIContainer(id));
+      const response = await fetch(`/api/user/${id}`);
+      if (response.ok) {
+        dispatch(addUser(await response.json()));
+      } else {
+        dispatch(fetchingUserFailed());
+      }
+    }
+  };
+};
+
+export const fetchCurrentUserAPI = () => {
+  return async (dispatch, getState) => {
+    const { user } = getState();
+    if (user.status === READY) {
+      const { userId } = user.entity;
+      fetchUserAPI(userId)(dispatch, getState);
     }
   };
 };

@@ -17,6 +17,7 @@
   width: $table-card-width;
   height: $table-card-height;
   background-size: cover;
+  background-color: $bg-tertiary;
   transition: all 0.2s ease-in-out;
   &:hover {
     transform: scale(1.1);

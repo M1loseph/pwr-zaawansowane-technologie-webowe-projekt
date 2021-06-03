@@ -1,40 +1,60 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { READY, RUNNING, FAILED } from "./APIStates";
 import {} from "./userSlice";
 
-export const fetchTable = createAsyncThunk("tables/fetchTable", async (id) => {
-  const response = await fetch(`/api/board/${id}`);
-  return await response.json();
-});
+const getTableIndexById = (state, id) => {
+  return state.findIndex((t) => t.id === id);
+};
+
+const indexOk = (index) => {
+  return index !== -1;
+};
 
 export const tableSlice = createSlice({
   name: "tables",
   initialState: [],
   reducers: {
+    addTableAPIContainer(state, action) {
+      const id = action.payload;
+      state.push({
+        id,
+        status: RUNNING,
+        entity: null,
+      });
+    },
     addTable(state, action) {
-      state.push(action.payload);
+      const table = action.payload;
+      const { boardId } = table;
+      const i = getTableIndexById(state, boardId);
+      if (indexOk(i)) {
+        state[i].status = READY;
+        state[i].entity = table;
+      }
     },
     removeTable(state, action) {
       const id = action.payload;
-      state = state.filter((t) => t.boardId !== id);
+      state = state.filter((t) => t.id !== id);
     },
     updateTable(state, action) {},
-  },
-  extraReducers: {
-    [fetchTable.fulfilled]: (state, action) => {
-      const { boardId } = action.payload;
-      const index = state.findIndex((t) => t.boardId === boardId);
-      if (index !== -1) {
-        state[index] = action.payload;
-      } else {
-        state.push(action.payload);
+    fetchingTableFailed(state, action) {
+      const id = action.payload;
+      const i = getTableById(state, id);
+      if (indexOk(i)) {
+        state[i].status = FAILED;
       }
-    },
-    [fetchTable.rejected]: (state, action) => {
-      console.error("BAD REQUEST");
     },
   },
 });
 
-export const { setTable, removeTable, addTable } = tableSlice.actions;
+export const getTableById = (state, id) => {
+  return state.tables.find((t) => t.id === id);
+};
+
+export const {
+  removeTable,
+  addTable,
+  fetchingTableFailed,
+  addTableAPIContainer,
+} = tableSlice.actions;
 
 export default tableSlice.reducer;

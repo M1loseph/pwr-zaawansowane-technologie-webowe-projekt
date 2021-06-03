@@ -4,12 +4,10 @@ import usersReducer from "./usersSlice";
 import cardsReducer from "./cardsSlice";
 import categoriesReducer from "./categoriesSlice";
 import columnsReducer from "./columnsSlice";
-import tokenReducer from "./tokenSlice";
 import tablesReducer from "./tablesSlice";
 
 /*
     userReducer - id of user in users that is currently logged in
-    token - jwt token to access api
     tables - all tables that user have access to
     columns - columns of table selected by user
     cards - cards belongin to table selected by user
@@ -19,7 +17,6 @@ import tablesReducer from "./tablesSlice";
 export default configureStore({
   reducer: {
     user: userReducer,
-    token: tokenReducer,
     tables: tablesReducer,
     columns: columnsReducer,
     cards: cardsReducer,
