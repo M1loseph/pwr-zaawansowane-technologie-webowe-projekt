@@ -66,12 +66,6 @@
   align-items: center;
 }
 
-.trello-settings-modal {
-  @include font-primary-mixin;
-  background-color: $bg-primary;
-  border: none;
-}
-
 .trello-dropdown-toggler {
   position: relative;
 }

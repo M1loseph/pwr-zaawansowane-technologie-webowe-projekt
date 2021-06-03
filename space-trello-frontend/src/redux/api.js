@@ -1,12 +1,11 @@
 import { READY } from "./APIStates";
 import {
-  removeTable,
+  deleteTable,
   addTable,
   addTableAPIContainer,
   fetchingTableFailed,
 } from "./tablesSlice";
 import {
-  deleteUserTable,
   addUserTable,
   updateUser,
   addUserAPIContainer,
@@ -29,13 +28,17 @@ export const fetchTableAPI = (id) => {
 
 export const deleteTableAPI = (id) => {
   return async (dispatch, getState) => {
-    const { tables } = getState();
-    const { user } = getState();
-    if (tables.find((t) => t.boardId === id)) {
+    const { tables } = getState().tables;
+    const { users } = getState().users;
+    if (tables.find((t) => t.id === id)) {
       const response = await fetch(`/api/board/${id}`, { method: "DELETE" });
       if (response.ok) {
-        dispatch(deleteUserTable({ userId: user.userId, tableId: id }));
-        dispatch(removeTable(id));
+        users.forEach((u) => {
+          if (u.status === READY) {
+            refetchUserAPI(u.id)(dispatch, getState);
+          }
+        });
+        dispatch(deleteTable(id));
       }
     }
   };
@@ -50,7 +53,7 @@ export const createTableAPI = ({ title, description, background }) => {
         boardTitle: title,
         description: description,
         img: background,
-        owner: user.userId,
+        owner: user.entity.userId,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -58,8 +61,11 @@ export const createTableAPI = ({ title, description, background }) => {
     });
     if (response.ok) {
       const table = await response.json();
+      dispatch(addTableAPIContainer(table.boardId));
       dispatch(addTable(table));
-      dispatch(addUserTable({ tableId: table.boardId, userId: user.userId }));
+      dispatch(
+        addUserTable({ tableId: table.boardId, userId: user.entity.userId })
+      );
     }
   };
 };
@@ -120,6 +126,20 @@ export const fetchCurrentUserAPI = () => {
     if (user.status === READY) {
       const { userId } = user.entity;
       fetchUserAPI(userId)(dispatch, getState);
+    }
+  };
+};
+
+export const refetchUserAPI = (id) => {
+  return async (dispatch, getState) => {
+    const { users } = getState().users;
+    // make sure that this this id does not exist
+    const user = users.find((u) => u.id === id);
+    if (user) {
+      const response = await fetch(`/api/user/${id}`);
+      if (response.ok) {
+        dispatch(updateUser(await response.json()));
+      }
     }
   };
 };

@@ -13,7 +13,7 @@ import { useParams } from "react-router";
 const TablePage = () => {
   const dispatch = useDispatch();
   const { tableId } = useParams();
-  const table = useSelector((s) => s.tables.find((t) => t.tableId === tableId));
+  const table = useSelector((s) => s.tables.tables.find((t) => t.tableId === tableId));
   //   if (!table) {
   //     dispatch();
   //   }

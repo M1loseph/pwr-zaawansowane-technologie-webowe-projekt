@@ -19,10 +19,12 @@ const TableTile = ({ tableId, allowDelete }) => {
   const [allowDeleteButton, setAllowDeleteButton] = useState(false);
   const TIMEOUT = 2000;
   const table = useSelector((state) => getTableById(state, tableId));
+  const [waitingForDeletion, setWaitingForDeletion] = useState(false);
 
   const deleteTable = () => {
     dispatch(deleteTableAPI(tableId));
     setShow(false);
+    setWaitingForDeletion(true);
   };
 
   const getBgImage = () => {
@@ -44,7 +46,7 @@ const TableTile = ({ tableId, allowDelete }) => {
 
   // table hasn't been fetched yet
   if (!table) {
-    dispatch(fetchTableAPI(tableId));
+    if (!waitingForDeletion) dispatch(fetchTableAPI(tableId));
     return <React.Fragment></React.Fragment>;
   }
 

@@ -6,7 +6,7 @@ import { toAvatarSrc } from "../../utils/imageUtils";
 
 const UserIcon = ({ width, height, userId }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.find((u) => u.id === userId));
+  const user = useSelector((state) => state.users.users.find((u) => u.id === userId));
 
   if (!user) {
     dispatch(fetchUserAPI(userId));
@@ -17,26 +17,28 @@ const UserIcon = ({ width, height, userId }) => {
     height: height,
   };
 
-  if (user && user.status === READY) {
-    const { avatar, color } = user.entity;
-    styles.borderColor = color;
-    return (
-      <div className={"rounded-circle mx-2 trello-user-icon"} style={styles}>
-        <img
-          src={toAvatarSrc(avatar)}
-          alt={"avatar"}
-          className={"img-fluid rounded-circle"}
-        ></img>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        className={"rounded-circle mx-2 trello-user-icon"}
-        style={styles}
-      ></div>
-    );
-  }
+  return (
+    <div
+      style={{ minWidth: width, minHeight: height }}
+      className={"rounded-circle mx-2 trello-user-icon"}
+    >
+      {(() => {
+        if (user && user.status === READY) {
+          const { avatar, color } = user.entity;
+          styles.borderColor = color;
+          return (
+            <img
+              src={toAvatarSrc(avatar)}
+              alt={"avatar"}
+              style={{ objectFit: "cover", ...styles }}
+              className={"rounded-circle"}
+            />
+          );
+        }
+        return null;
+      })()}
+    </div>
+  );
 };
 
 export default UserIcon;

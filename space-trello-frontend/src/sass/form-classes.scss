@@ -166,3 +166,9 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
+.trello-settings-modal {
+  @include font-primary-mixin;
+  background-color: $bg-primary;
+  border: none;
+}

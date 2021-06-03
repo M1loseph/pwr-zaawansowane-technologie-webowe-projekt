@@ -22,7 +22,7 @@ export const tokenSlice = createSlice({
 
 export const getCurrentUser = (state) => {
   if (state.user.status !== READY) return;
-  return state.users.find((u) => u.id === state.user.entity.userId);
+  return state.users.users.find((u) => u.id === state.user.entity.userId);
 };
 
 export const { setUser, deleteUserTable } = tokenSlice.actions;

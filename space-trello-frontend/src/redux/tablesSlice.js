@@ -3,7 +3,7 @@ import { READY, RUNNING, FAILED } from "./APIStates";
 import {} from "./userSlice";
 
 const getTableIndexById = (state, id) => {
-  return state.findIndex((t) => t.id === id);
+  return state.tables.findIndex((t) => t.id === id);
 };
 
 const indexOk = (index) => {
@@ -12,11 +12,11 @@ const indexOk = (index) => {
 
 export const tableSlice = createSlice({
   name: "tables",
-  initialState: [],
+  initialState: { tables: [] },
   reducers: {
     addTableAPIContainer(state, action) {
       const id = action.payload;
-      state.push({
+      state.tables.push({
         id,
         status: RUNNING,
         entity: null,
@@ -27,13 +27,15 @@ export const tableSlice = createSlice({
       const { boardId } = table;
       const i = getTableIndexById(state, boardId);
       if (indexOk(i)) {
-        state[i].status = READY;
-        state[i].entity = table;
+        state.tables[i].status = READY;
+        state.tables[i].entity = table;
       }
     },
-    removeTable(state, action) {
+    deleteTable(state, action) {
       const id = action.payload;
-      state = state.filter((t) => t.id !== id);
+      state.tables = state.tables.filter(
+        (t) => !(t.id === id && t.status === READY)
+      );
     },
     updateTable(state, action) {},
     fetchingTableFailed(state, action) {
@@ -47,11 +49,11 @@ export const tableSlice = createSlice({
 });
 
 export const getTableById = (state, id) => {
-  return state.tables.find((t) => t.id === id);
+  return state.tables.tables.find((t) => t.id === id);
 };
 
 export const {
-  removeTable,
+  deleteTable,
   addTable,
   fetchingTableFailed,
   addTableAPIContainer,

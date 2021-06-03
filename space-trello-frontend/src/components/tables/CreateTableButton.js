@@ -17,13 +17,17 @@ const CreateTableButton = () => {
   const reset = () => setFormData(defaultFormData);
   const assign = (obj) => setFormData(Object.assign({}, formData, obj));
   const [availableImages, setAvailableImages] = useState({});
+  const [errors, setErros] = useState({
+    titleError: null,
+    descriptionError: null,
+  });
 
   useEffect(() => {
     let cancelled = false;
     const fetchAvaiableImages = async () => {
       const response = await fetch("/api/board/backgrounds");
       const data = await response.json();
-      setAvailableImages(data);
+      if (!cancelled) setAvailableImages(data);
     };
     fetchAvaiableImages();
     return () => (cancelled = true);
@@ -72,6 +76,7 @@ const CreateTableButton = () => {
               <Form.Label className="form-label">Opis</Form.Label>
               <Form.Control
                 value={formData.description}
+                style={{ resize: "none" }}
                 onChange={(e) => assign({ description: e.target.value })}
                 as="textarea"
                 rows={5}
