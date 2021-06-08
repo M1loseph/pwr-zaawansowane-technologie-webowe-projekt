@@ -9,32 +9,34 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { fetchTableAPI } from "../redux/api";
 
 const TablePage = () => {
   const dispatch = useDispatch();
-  const { tableId } = useParams();
-  const table = useSelector((s) => s.tables.tables.find((t) => t.tableId === tableId));
-  //   if (!table) {
-  //     dispatch();
-  //   }
+  const tableId = parseInt(useParams().tableId);
+  const table = useSelector((s) =>
+    s.tables.tables.find((t) => t.id === tableId)
+  );
+  if (!table) {
+    dispatch(fetchTableAPI(tableId));
+  }
 
   return (
-      <div></div>
-    // <DndProvider backend={HTML5Backend}>
-    //   <TableBackground bgImage={bgImage}>
-    //     <TablePageHeader />
-    //     <TablePageBody>
-    //       {columns.map((column) => (
-    //         <ColumnWrapper key={column.id}>
-    //           <Column column={column} />
-    //         </ColumnWrapper>
-    //       ))}
-    //       <ColumnWrapper>
-    //         <AddColumnButton addColumn={addColumn} />
-    //       </ColumnWrapper>
-    //     </TablePageBody>
-    //   </TableBackground>
-    // </DndProvider>
+    <DndProvider backend={HTML5Backend}>
+      <TableBackground tableId={tableId}>
+        <TablePageHeader tableId={tableId} />
+        <TablePageBody>
+          {table?.entity?.columns.map((id) => (
+            <ColumnWrapper key={id}>
+              <Column columnId={id} />
+            </ColumnWrapper>
+          ))}
+          <ColumnWrapper>
+            <AddColumnButton addColumn={() => {}} />
+          </ColumnWrapper>
+        </TablePageBody>
+      </TableBackground>
+    </DndProvider>
   );
 };
 

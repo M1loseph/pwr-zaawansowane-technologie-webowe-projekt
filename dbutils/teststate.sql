@@ -1,7 +1,7 @@
 -- CLEANUP
 DELETE FROM assignments CASCADE;
 DELETE FROM boards_invited_users CASCADE;
-DELETE FROM cards_label_list CASCADE;
+DELETE FROM cards_categories CASCADE;
 DELETE FROM labels CASCADE;
 DELETE FROM cards CASCADE;
 DELETE FROM board_columns CASCADE;
@@ -30,7 +30,7 @@ VALUES
 	(4, 'Fourth Column', 'Fourth column description', 2);
 	
 -- CARDS
-INSERT INTO cards(cardid, card_title, date, description, owner_board_column_id)
+INSERT INTO cards(card_id, card_title, date, description, owner_board_column_id)
 VALUES
 	(1, 'Card 1', '2020-10-10', 'Card 1 description', 1),
 	(2, 'Card 2', '2020-10-10', 'Card 2 description', 1),
@@ -53,7 +53,7 @@ VALUES
 	(20, 'Card 19', '2020-10-10', 'Card 19 description', 4);
 
 -- LABELS
-INSERT INTO labels(labelid, title, color)
+INSERT INTO labels(label_id, title, color)
 VALUES
 	(1, 'Label 1', '#FF0000'),
 	(2, 'Label 2', '#00FF00'),
@@ -61,7 +61,7 @@ VALUES
 	(4, 'Label 4', '#a60c2F');
 	
 -- ATTACH LABELS
-INSERT INTO cards_label_list(card_list_cardid, label_list_labelid)
+INSERT INTO cards_categories(card_list_card_id, categories_label_id)
 VALUES
 	(1, 1),
 	(1, 2),

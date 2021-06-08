@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import SettingsFormEditButton from "./SettingsFormEditButton";
 import FormBase from "../helper/FormBase";
@@ -30,12 +30,11 @@ const SettingsView = () => {
     dispatch(updateUserAPI(assign(prop)));
   };
 
-  if (!user) {
+  useEffect(() => {
     dispatch(fetchCurrentUserAPI());
-    return <div></div>;
-  }
+  }, [dispatch]);
 
-  if (user.status === READY) {
+  if (user?.status === READY) {
     const { firstName, lastName, email, avatar, preferredColor } = user.entity;
     return (
       <React.Fragment>
@@ -125,7 +124,7 @@ const SettingsView = () => {
         />
       </React.Fragment>
     );
-  } else if ((user.status = FAILED)) {
+  } else if (user?.status === FAILED) {
     // TODO - IMPROVE ERROR HANDLING
     return <div>ERROR</div>;
   } else {

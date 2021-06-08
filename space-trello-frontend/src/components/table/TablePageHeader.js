@@ -1,126 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTableAPI } from "../../redux/api";
+import { READY } from "../../redux/APIStates";
 import UserIcon from "../common/UserIcon";
 import AddUsersToTableModal from "./AddUsersToTableModal";
 import EditableField from "./column/card/helper/EditableFiels";
 
-const TablePageHeader = ({ users }) => {
-  users = [
-    {
-      id: 1,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "red",
-    },
-    {
-      id: 2,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Ania",
-      lastName: "Kowalska",
-      color: "blue",
-    },
-    {
-      id: 3,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "orange",
-    },
-  ];
-
-  const allUsers = [
-    {
-      id: 1,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "red",
-    },
-    {
-      id: 2,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Ania",
-      lastName: "Kowalska",
-      color: "blue",
-    },
-    {
-      id: 3,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "orange",
-    },
-    {
-      id: 4,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "red",
-    },
-    {
-      id: 5,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Ania",
-      lastName: "Kowalska",
-      color: "blue",
-    },
-    {
-      id: 6,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "orange",
-    },
-    {
-      id: 7,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "orange",
-    },
-    {
-      id: 8,
-      src: "https://thispersondoesnotexist.com/image",
-      name: "Michał",
-      lastName: "Kowalski",
-      color: "orange",
-    },
-  ];
+const TablePageHeader = ({ tableId }) => {
+  const dispatch = useDispatch();
+  const table = useSelector((s) =>
+    s.tables.tables.find((t) => t.id === tableId)
+  );
 
   const [showModal, setShowModal] = useState(false);
-  const [title, setTitle] = useState("Moja Todo Lista");
+  const [title, setTitle] = useState(table?.entity?.boardTitle ?? "");
 
-  return (
-    <React.Fragment>
-      <div className="container-fluid">
-        <div className="row p-4">
-          <div className="table-header p-3 rounded">
-            <EditableField
-              className="h2 mb-3 table-header-font"
-              value={title}
-              setValue={setTitle}
-            />
-            <div className="row">
-              {users.map((user) => (
-                <UserIcon key={user.id} user={user} />
-              ))}
-              <img
-                onClick={() => setShowModal(true)}
-                className={"ml-3 trello-clickable"}
-                src={"/assets/addUserToTable.svg"}
-                alt={"Add new user"}
+  if (!table) {
+    dispatch(fetchTableAPI(tableId));
+  }
+
+  useEffect(() => {
+    if (table?.status === READY) {
+      setTitle(table.entity.boardTitle);
+    }
+  }, [table]);
+
+  if (table?.status === READY) {
+    const { invitedUsers, owner } = table.entity;
+    return (
+      <React.Fragment>
+        <div className="container-fluid">
+          <div className="row p-4">
+            <div className="table-header p-3 rounded">
+              <EditableField
+                className="h2 mb-3 table-header-font"
+                value={title}
+                setValue={setTitle}
               />
+              <div className="row">
+                <UserIcon userId={owner} />
+                <div className="bg-white mx-2" style={{ width: 3, height: 46 }} />
+                {invitedUsers.map((id) => (
+                  <UserIcon key={id} userId={id} />
+                ))}
+                <img
+                  onClick={() => setShowModal(true)}
+                  className={"ml-3 trello-clickable"}
+                  src={"/assets/addUserToTable.svg"}
+                  alt={"Add new user"}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <AddUsersToTableModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        allUsers={allUsers}
-      />
-    </React.Fragment>
-  );
+        <AddUsersToTableModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      </React.Fragment>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default TablePageHeader;

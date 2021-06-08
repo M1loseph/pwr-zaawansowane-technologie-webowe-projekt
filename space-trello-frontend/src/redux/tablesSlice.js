@@ -40,7 +40,7 @@ export const tableSlice = createSlice({
     updateTable(state, action) {},
     fetchingTableFailed(state, action) {
       const id = action.payload;
-      const i = getTableById(state, id);
+      const i = getTableIndexById(state, id);
       if (indexOk(i)) {
         state[i].status = FAILED;
       }

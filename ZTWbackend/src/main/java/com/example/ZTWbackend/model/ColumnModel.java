@@ -1,9 +1,6 @@
 package com.example.ZTWbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,8 +26,9 @@ public class ColumnModel {
     @JsonBackReference
     private BoardModel board;
     @Column(name = "card")
-    @OneToMany(mappedBy = "boardColumn", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "boardColumn", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CardModel> cards;
 
     public ColumnModel() {

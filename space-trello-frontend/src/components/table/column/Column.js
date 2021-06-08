@@ -2,16 +2,25 @@ import React, { useState } from "react";
 import ColumnFooter from "./ColumnFooter";
 import ColumnHeader from "./ColumnHeader";
 import Card from "./card/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchColumnAPI } from "../../../redux/api";
 
-const Column = ({ column }) => {
-  const { cards } = column;
-  const [title, setTitle] = useState("Hello world");
+const Column = ({ columnId }) => {
+  const dispatch = useDispatch();
+  const column = useSelector((s) =>
+    s.columns.columns.find((c) => c.id === columnId)
+  );
+
+  if (!column) {
+    dispatch(fetchColumnAPI(columnId));
+  }
+
   return (
     <div className={"p-2 d-flex flex-column trello-column rounded mh-100"}>
-      <ColumnHeader title={title} setTitle={setTitle} />
+      <ColumnHeader columnId={columnId} />
       <div className="overflow-auto">
-        {cards.map((c) => (
-          <Card key={c.id} card={c} />
+        {column?.entity?.cards.map((id) => (
+          <Card key={id} cardId={id} />
         ))}
       </div>
       <ColumnFooter />

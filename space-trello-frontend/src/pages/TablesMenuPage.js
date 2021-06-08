@@ -12,7 +12,7 @@ import { getCurrentUser } from "../redux/userSlice";
 const TablesMenuPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => getCurrentUser(state));
-  if (user === undefined) {
+  if (!user) {
     // TODO => fetch user from API
     // dispatch();
   }

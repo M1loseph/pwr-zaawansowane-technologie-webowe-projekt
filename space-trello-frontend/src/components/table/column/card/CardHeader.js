@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import { Row } from "react-bootstrap";
 import CategoryMinimal from "./category/CategoryMinimal";
-import CategoryOptionsModal from "./CardOptionsModal";
+import CardOptionsModal from "./CardOptionsModal";
+import { useSelector } from "react-redux";
 
-const CardHeader = ({ card, hovering }) => {
-  const { categories } = card;
+const CardHeader = ({ cardId, hovering }) => {
+  const card = useSelector((s) => s.cards.cards.find((c) => c.id === cardId));
   const [showModal, setShowModal] = useState(false);
   return (
     <React.Fragment>
       <Row className={"d-flex align-items-center mt-2 pt-2 px-1"}>
-        {categories.map((c) => (
-          <CategoryMinimal key={c.id} category={c} />
+        {card?.entity?.categories?.map((id) => (
+          <CategoryMinimal key={id} categoryId={id} />
         ))}
-        {hovering && (
-          <i
-            onClick={() => setShowModal(true)}
-            className="ml-auto fas fa-pen fa-lg trello-clickable"
-          ></i>
-        )}
+        <i
+          onClick={() => setShowModal(true)}
+          className="ml-auto fas fa-pen fa-lg trello-clickable"
+          style={{ visibility: hovering ? "visible" : "hidden" }}
+        ></i>
       </Row>
-      <CategoryOptionsModal
+      <CardOptionsModal
         showModal={showModal}
         setShowModal={setShowModal}
-        card={card}
+        cardId={cardId}
       />
     </React.Fragment>
   );

@@ -1,11 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoryAPI } from "../../../../../redux/api";
 
-const CategoryMinimal = ({ category }) => {
-  const { color } = category;
+const CategoryMinimal = ({ categoryId }) => {
+  const dispatch = useDispatch();
+  const category = useSelector((s) =>
+    s.categories.categories.find((c) => c.id === categoryId)
+  );
+
+  if (!category) {
+    dispatch(fetchCategoryAPI(categoryId));
+  }
+
   return (
     <div
       className="rounded-pill category-minimal m-1"
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: category?.entity?.color }}
     ></div>
   );
 };

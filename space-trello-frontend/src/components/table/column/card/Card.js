@@ -5,8 +5,12 @@ import { useHovering } from "use-hovering";
 import EditableField from "./helper/EditableFiels";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../../common/Constants";
+import { useDispatch, useSelector } from "react-redux";
+import { READY } from "../../../../redux/APIStates";
+import { fetchCardAPI } from "../../../../redux/api";
 
-const Card = ({ card }) => {
+const Card = ({ cardId }) => {
+  const dispatch = useDispatch();
   const rootRef = useRef(null);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CARD,
@@ -15,45 +19,25 @@ const Card = ({ card }) => {
     }),
   }));
   const hovering = useHovering(rootRef);
-  card = {
-    title: "Testowanko",
-    description: "Opis mojego czegoś tam",
-    date: new Date().toISOString().split("T")[0],
-    categories: [
-      { id: 1, title: "Hello", color: "red" },
-      { id: 2, title: "World", color: "lime" },
-    ],
-    users: [
-      {
-        id: 1,
-        src: "https://thispersondoesnotexist.com/image",
-        name: "Michał",
-        surname: "Kowalski",
-        color: "red",
-      },
-      {
-        id: 2,
-        src: "https://thispersondoesnotexist.com/image",
-        name: "Ania",
-        surname: "Kowalska",
-        color: "blue",
-      },
-      {
-        id: 3,
-        src: "https://thispersondoesnotexist.com/image",
-        name: "Michał",
-        surname: "Kowalski",
-        color: "orange",
-      },
-    ],
-  };
-
   const setRefs = (ref) => {
     rootRef.current = ref;
     drag(ref);
   };
 
-  const { title } = card;
+  const card = useSelector((s) => s.cards.cards.find((c) => c.id === cardId));
+  const [cardTitle, setCardTitle] = useState(card?.entity?.title ?? "");
+
+  useEffect(() => {
+    if (!card) {
+      dispatch(fetchCardAPI(cardId));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (card && card.status === READY) {
+      setCardTitle(card.entity.cardTitle);
+    }
+  }, [card]);
 
   return (
     <div
@@ -61,12 +45,12 @@ const Card = ({ card }) => {
       className="col bg-white rounded"
       style={{ opacity: isDragging ? 0 : 1, cursor: "grab" }}
     >
-      <CardHeader card={card} hovering={hovering} />
+      <CardHeader cardId={cardId} hovering={hovering} />
       <Row style={{ fontSize: 20 }} className={"px-3 pb-3"}>
         <EditableField
           className="font-weight-bold"
-          value={title}
-          setValue={(v) => console.log(v)}
+          value={cardTitle}
+          setValue={(v) => setCardTitle(v.target.value)}
         />
       </Row>
     </div>

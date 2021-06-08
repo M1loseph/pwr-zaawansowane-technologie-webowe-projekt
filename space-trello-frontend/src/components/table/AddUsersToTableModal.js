@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, FormControl, Modal } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllUsersAPI } from "../../redux/api";
+import { READY } from "../../redux/APIStates";
 import DiscardButton from "../common/DiscardButton";
 import AddUserEntry from "./AddUserEntry";
 
-const AddUsersToTableModal = ({ showModal, setShowModal, allUsers }) => {
+const AddUsersToTableModal = ({ showModal, setShowModal }) => {
+  const dispatch = useDispatch();
   const [filter, setFilter] = useState(/.*/g);
+  const users = useSelector((s) => s.users);
+  const fetch = useRef(true);
+
+  if (fetch.current) {
+    dispatch(fetchAllUsersAPI());
+    fetch.current = false;
+  }
+
   return (
     <Modal
       show={showModal}
       onHide={() => setShowModal(false)}
-      backdrop="static"
       keyboard={true}
       animation={false}
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header className="trello-white-modal" closeButton>
         <Modal.Title>Dodaj użytkownika do swojej tablicy</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="trello-white-modal">
         Szukaj
         <FormControl
           type="text"
@@ -27,15 +38,19 @@ const AddUsersToTableModal = ({ showModal, setShowModal, allUsers }) => {
           }}
         />
         <div className="mt-3" style={{ height: 350, overflow: "auto" }}>
-          {allUsers
-            .filter((user) => (user.name + " " + user.lastName).match(filter))
+          {/* {users?.users
+            .filter((u) => u.status === READY)
+            .map((u) => u.entity)
+            .filter((user) =>
+              (user.firstName + " " + user.lastName).match(filter)
+            )
             .map((user) => (
-              <AddUserEntry key={user.id} user={user} />
-            ))}
+              <AddUserEntry key={user.userId} userId={user.userId} />
+            ))} */}
         </div>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer className="trello-white-modal">
         <Button onClick={() => setShowModal(false)}>Zamknij</Button>
       </Modal.Footer>
     </Modal>

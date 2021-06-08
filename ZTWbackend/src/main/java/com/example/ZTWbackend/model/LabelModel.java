@@ -6,34 +6,33 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "labels")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "labelID")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "labelId")
 public class LabelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long labelID;
+    private long labelId;
     @Column(name = "title")
     private String title;
     @Column(name = "color")
     @Pattern(regexp = "^#[\\da-fA-F]{6}$")
     private String color;
-    @ManyToMany(mappedBy = "labelList")
+    @ManyToMany(mappedBy = "categories")
     @JsonBackReference()
     private Set<CardModel> cardList;
 
     public LabelModel() {
     }
 
-    public long getLabelID() {
-        return labelID;
+    public long getLabelId() {
+        return labelId;
     }
 
-    public void setLabelID(long labelID) {
-        this.labelID = labelID;
+    public void setLabelId(long labelId) {
+        this.labelId = labelId;
     }
 
     public String getTitle() {

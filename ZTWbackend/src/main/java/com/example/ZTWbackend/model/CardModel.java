@@ -1,24 +1,20 @@
 package com.example.ZTWbackend.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "cards")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cardID")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cardId")
 public class CardModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cardID;
+    private long cardId;
     @Column(name = "card_title")
     private String cardTitle;
     @Column(name = "date")
@@ -30,8 +26,9 @@ public class CardModel {
     @JoinColumn(name = "owner_board_column_id")
     @JsonBackReference
     private ColumnModel boardColumn;
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<LabelModel> labelList;
+    private List<LabelModel> categories;
     @OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<AssignmentModel> assignments;
 
@@ -39,12 +36,12 @@ public class CardModel {
         super();
     }
 
-    public long getCardID() {
-        return cardID;
+    public long getCardId() {
+        return cardId;
     }
 
-    public void setCardID(long cardID) {
-        this.cardID = cardID;
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
     }
 
     public String getCardTitle() {
@@ -80,19 +77,19 @@ public class CardModel {
     }
 
     public List<LabelModel> getLabeList() {
-        return labelList;
+        return categories;
     }
 
     public void setLabeList(List<LabelModel> labeList) {
-        this.labelList = labeList;
+        this.categories = labeList;
     }
 
-    public List<LabelModel> getLabelList() {
-        return labelList;
+    public List<LabelModel> getCategories() {
+        return categories;
     }
 
-    public void setLabelList(List<LabelModel> labelList) {
-        this.labelList = labelList;
+    public void setCategories(List<LabelModel> categories) {
+        this.categories = categories;
     }
 
     public Set<AssignmentModel> getAssignments() {
